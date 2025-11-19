@@ -1,0 +1,20 @@
+<peliculas>
+	<pelicula>
+		<titulo>Interstellar</titulo>
+		<duracion>169</duracion>
+		<fechaEstreno>2014-11-07</fechaEstreno>
+		<sinopsis>Exploradores espaciales buscan un nuevo hogar para la humanidad.</sinopsis>
+	</pelicula>
+	<pelicula>
+		<titulo>The Dark Knight</titulo>
+		<duracion>152</duracion>
+		<fechaEstreno>2008-07-18</fechaEstreno>
+		<sinopsis>Batman enfrenta al Joker en una lucha por el alma de Gotham.</sinopsis>
+	</pelicula>
+	<pelicula>
+		<titulo>Soul</titulo>
+		<duracion>100</duracion>
+		<fechaEstreno>2020-12-25</fechaEstreno>
+		<sinopsis>Un músico descubre el sentido de la vida más allá de la muerte.</sinopsis>
+	</pelicula>
+</peliculas>

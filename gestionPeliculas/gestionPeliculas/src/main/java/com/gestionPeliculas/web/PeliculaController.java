@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.List;
 
@@ -22,10 +24,13 @@ import java.util.List;
 public class PeliculaController {
     private final PeliculaService service;
 
+    /*
     @GetMapping
     public List<Pelicula> listar() {
         return service.listar();
     }
+
+     */
 
     @GetMapping("/{id}")
     public Pelicula buscarPorId(@PathVariable Long id) {
@@ -94,36 +99,24 @@ public class PeliculaController {
 
     // A4 - Ejercicio 3
 
-    @PostMapping("/importar")
-    public ResponseEntity<String> importar(@RequestParam("file")MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("El archivo esta vacio");
-        }
+    @PostMapping("/cargarPeliculas/{nombreArchivo}")
+    public ResponseEntity<?> cargarPeliculasArchivo(@PathVariable String nombreArchivo) throws IOException {
+        String rutaFichero = "gestionPeliculas/src/main/resources/" + nombreArchivo;
 
-        String nombreArchivo = file.getOriginalFilename();
+        service.importarCarpeta(rutaFichero);
 
-        try {
-            Path rutaTemporal = Files.createTempFile("upload_", "_" + nombreArchivo);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Archivos importados correctamente");
+    }
+    @GetMapping("/peliculas")
+    public List<Pelicula> mostrarPeliculas(){
+        return service.listar();
+    }
 
-            Files.copy(file.getInputStream(), rutaTemporal, StandardCopyOption.REPLACE_EXISTING);
+    // A4 - Ejercicio 4
 
-            if (nombreArchivo != null && nombreArchivo.endsWith(".csv")) {
-                service.importarCsvAsync(rutaTemporal);
-                return ResponseEntity.status(HttpStatus.ACCEPTED)
-                        .body("Archivo CSV recibido. Procesando en segundo plano...");
-            } else if (nombreArchivo != null && nombreArchivo.endsWith(".xml")) {
-                service.importarXmlAsync(rutaTemporal);
-                return ResponseEntity.status(HttpStatus.ACCEPTED)
-                        .body("Archivo XML recibido. Procesando en segundo plano...");
-            } else {
-                Files.deleteIfExists(rutaTemporal);
-                return ResponseEntity.badRequest().body("Formato no soportado. Usa .csv o .xml");
-            }
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al iniciar la implementacion " + e.getMessage());
-        }
+    @GetMapping("/oscar/{jurados}")
+    public HashMap<String, Integer> votacionesOscars(@PathVariable int jurados) throws InterruptedException {
+        return service.votacionOscars(jurados);
     }
 
 

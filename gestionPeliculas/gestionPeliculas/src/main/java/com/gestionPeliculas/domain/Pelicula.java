@@ -1,5 +1,7 @@
 package com.gestionPeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -29,13 +31,35 @@ public class Pelicula {
     private int valoracion;
 
     @OneToOne
-    @JoinColumn(name = "ficha_id") // FK en la tabla Pelicula
+    @JoinColumn(name = "ficha_id") // FK en la tabla Pelicula que apunta a FichaTecnica.
     private FichaTecnica fichaTecnica;
 
     @ManyToOne
-    @JoinColumn(name = "director_id", nullable = false) // FK en PELICULA
+    @JoinColumn(name = "director_id")
+    @JsonManagedReference
     private Director director;
 
-    @ManyToMany(mappedBy = "peliculas")
-    private List<Actor> actors;
+    @ManyToMany
+    @JoinTable(
+            name = "peliculas_actores",                             // nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "pelicula_id"),        // FK de esta entidad
+            inverseJoinColumns = @JoinColumn(name = "actor_id")     // FK de la otra entidad
+    )
+    @JsonIgnore
+    private List<Actor> actores;
+
+    // Mantener sincronizada una relación bidireccional Actor <-> Pelicula
+    public void addActor(Actor a){
+        if (!actores.contains(a)) {
+            actores.add(a);
+        }
+        if (!a.getPeliculas().contains(this)) {
+            a.getPeliculas().add(this);
+        }
+    }
+
+//    public void addActor(Actor actor){
+//        actores.add(actor);
+//        actor.getPeliculas().add(this);
+//    }
 }

@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.scheduling.annotation.Async;
+
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.Semaphore;
 import java.util.stream.Stream;
 
 import org.w3c.dom.Document;
@@ -33,7 +37,7 @@ public class PeliculaService {
     private final List<Pelicula> peliculas = new ArrayList<>();
     private final PeliculaRepository peliculaRepository;
 
-
+/*
     public PeliculaService(PeliculaRepository peliculaRepository) {
         peliculas.add(new Pelicula(1L, "Interstellar", 169, LocalDate.of(2014, 11, 7),
                 "Exploradores espaciales buscan un nuevo hogar para la humanidad.",6,null,null,null));
@@ -42,6 +46,8 @@ public class PeliculaService {
         peliculas.add(new Pelicula(3L, "Soul", 100, LocalDate.of(2020, 12, 25),
                 "Un músico descubre el sentido de la vida más allá de la muerte.",5,null,null,null));
     }
+
+ */
 
 
     public List<Pelicula> mejores_peliculas(int valoracion){
@@ -195,6 +201,78 @@ public class PeliculaService {
 
         } catch (Exception e) {
             System.err.println("Error en XML " + fichero + ": " + e.getMessage());
+        }
+
+        return CompletableFuture.completedFuture(null);
+    }
+
+
+    // Metodos para hacer el ejericicio 4
+
+    private HashMap<String, Integer> votacion = new HashMap<>();
+    Semaphore sem = new Semaphore(5);
+    Random random = new Random();
+
+    public HashMap<String, Integer> votacionOscars(int jurados) {
+        long inicio =System.currentTimeMillis();
+
+        votacion.clear();
+
+        List<Pelicula> peliculas = peliculaRepository.findAll();
+
+        System.out.println("Peliculas encontradas en la Base de Datos(BD): " + peliculas.size());
+        for(Pelicula p : peliculas) {
+            System.out.println(" - " + p.getTitulo());
+        }
+
+        List<String> titulosPeliculas = new ArrayList<>();
+
+        for (Pelicula p : peliculas) {
+            titulosPeliculas.add(p.getTitulo());
+        }
+
+        List<CompletableFuture<Void>> tareas = new ArrayList<>();
+
+        for (int i = 0; i < jurados; i++) {
+            tareas.add(votar(titulosPeliculas, i + 1));
+        }
+
+        CompletableFuture.allOf(tareas.toArray(new CompletableFuture[0])).join();
+
+        System.out.println("Votaciones finalizadas.");
+        System.out.println("Resultado: ");
+        System.out.println(votacion);
+
+        long fin = System.currentTimeMillis();
+
+        long tiempoTotal = (fin - inicio);
+
+        System.out.println("Las votaciones de las peliculas han durado " + tiempoTotal + " milisegundos");
+
+        return votacion;
+    }
+
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> votar(List<String> titulosCandidatas, int idJurado) {
+        try {
+            sem.acquire();
+            try {
+                for (String titulo : titulosCandidatas) {
+                    int puntos = random.nextInt(11);
+                    System.out.println("El jurado " + idJurado + " vota con " +  puntos + " puntos a " + titulo);
+
+                    synchronized (votacion) {
+                        votacion.put(titulo, votacion.getOrDefault(titulo, 0) + puntos);
+                    }
+                }
+
+            } finally {
+                sem.release();
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return CompletableFuture.completedFuture(null);
