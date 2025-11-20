@@ -13,7 +13,7 @@ public class AsyncConfig {
         ThreadPoolTaskExecutor ex = new ThreadPoolTaskExecutor();
         ex.setCorePoolSize(3);
         ex.setMaxPoolSize(6);
-        ex.setQueueCapacity(20);
+        ex.setQueueCapacity(1000);
         ex.setThreadNamePrefix("psp-");
         ex.initialize();
         return ex;

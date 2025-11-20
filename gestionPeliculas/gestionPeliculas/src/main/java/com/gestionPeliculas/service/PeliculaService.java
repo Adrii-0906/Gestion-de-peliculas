@@ -3,6 +3,7 @@ package com.gestionPeliculas.service;
 import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.repository.PeliculaRepository;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Stream;
 
@@ -32,13 +34,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 @Service
 @Getter
-@RequiredArgsConstructor
 public class PeliculaService {
     private final List<Pelicula> peliculas = new ArrayList<>();
-    private final PeliculaRepository peliculaRepository;
 
-/*
-    public PeliculaService(PeliculaRepository peliculaRepository) {
+    @Autowired
+    private PeliculaRepository peliculaRepository;
+
+    @Autowired
+    private AsyncService asyncService;
+
+    public PeliculaService() {
         peliculas.add(new Pelicula(1L, "Interstellar", 169, LocalDate.of(2014, 11, 7),
                 "Exploradores espaciales buscan un nuevo hogar para la humanidad.",6,null,null,null));
         peliculas.add(new Pelicula(2L, "The Dark Knight", 152, LocalDate.of(2008, 7, 18),
@@ -47,7 +52,6 @@ public class PeliculaService {
                 "Un músico descubre el sentido de la vida más allá de la muerte.",5,null,null,null));
     }
 
- */
 
 
     public List<Pelicula> mejores_peliculas(int valoracion){
@@ -61,11 +65,11 @@ public class PeliculaService {
     }
 
     public List<Pelicula> listar() {
-        return peliculas;
+        return peliculaRepository.findAll();
     }
 
     public Pelicula buscarPorId(Long id) {
-        for (Pelicula p : peliculas) {
+        for (Pelicula p : listar()) {
             if (p.getId().equals(id)) {
                 return p;
             }
@@ -109,15 +113,19 @@ public class PeliculaService {
     @Async("taskExecutor")
     public CompletableFuture<String> reproducir(String titulo) {
         try {
+            long inicio = System.currentTimeMillis();
             System.out.println("Reproduciendo " + titulo + " en " + Thread.currentThread().getName());
-            Thread.sleep(3000);
-            System.out.println("Terminando " + titulo);
+            int milisegundosAleatorios = (new Random().nextInt(5)+1) * 1000; // Genera número aleatorio entre 1 y 5(por eso el +1 para quitar el 0)
+            Thread.sleep(milisegundosAleatorios);
+            long tiempoTotalReproduccion = System.currentTimeMillis() - inicio;
+            System.out.println("Procesada la película: " + titulo + " en " + tiempoTotalReproduccion + " milisegundos");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         return CompletableFuture.completedFuture("Procesada " + titulo);
     }
 
+    // A4 - Ejercicio 3
     public void importarCarpeta(String rutaCarpeta) throws IOException {
         long inicio = System.currentTimeMillis();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
@@ -125,9 +133,9 @@ public class PeliculaService {
             paths.filter(Files::isRegularFile).forEach(path -> {
                 String nombre = path.toString().toLowerCase();
                 if (nombre.endsWith(".csv") || nombre.endsWith(".txt")) {
-                    futures.add(importarCsvAsync(path));
+                    futures.add(asyncService.importarCsvAsync(path)); // Esto lo cambiamos para cogerlo de otra clase y que nos coja el Async
                 } else if (nombre.endsWith(".xml")) {
-                    futures.add(importarXmlAsync(path));
+                    futures.add(asyncService.importarXmlAsync(path)); // Esto lo cambiamos para cogerlo de otra clase y que nos coja el async
                 }
             });
         }
@@ -139,143 +147,43 @@ public class PeliculaService {
     }
 
 
-    @Async("taskExecutor")
-    public CompletableFuture<Void> importarCsvAsync(Path fichero) {
-        try {
-            System.out.println("Procesando CSV: " + fichero + " en " + Thread.currentThread().getName());
 
-            List<Pelicula> lista = new ArrayList<>();
-
-            List<String> lineas = Files.readAllLines(fichero);
-            lineas.remove(0); // suponemos encabezado
-
-            for (String linea : lineas) {
-                String[] campos = linea.split(";");
-                Pelicula p = new Pelicula();
-                p.setTitulo(campos[0]);
-                p.setDuracion(Integer.parseInt(campos[1]));
-                p.setFechaEstreno(LocalDate.parse(campos[2]));
-                p.setSinopsis(campos[3]);
-                lista.add(p);
-            }
-
-            peliculaRepository.saveAll(lista);
-
-            System.out.println("Finalizado CSV: " + fichero);
-
-        } catch (Exception e) {
-            System.err.println("Error en CSV " + fichero + ": " + e.getMessage());
-        }
-
-        return CompletableFuture.completedFuture(null);
-    }
-
-    @Async("taskExecutor")
-    public CompletableFuture<Void> importarXmlAsync(Path fichero) {
-        try {
-            System.out.println("Procesando XML: " + fichero + " en " + Thread.currentThread().getName());
-
-            List<Pelicula> lista = new ArrayList<>();
-
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-
-            Document doc = builder.parse(fichero.toFile());
-            NodeList nodos = doc.getElementsByTagName("pelicula");
-
-            for (int i = 0; i < nodos.getLength(); i++) {
-                Element e = (Element) nodos.item(i);
-
-                Pelicula p = new Pelicula();
-                p.setTitulo(e.getElementsByTagName("titulo").item(0).getTextContent());
-                p.setDuracion(Integer.parseInt(e.getElementsByTagName("duracion").item(0).getTextContent()));
-                p.setFechaEstreno(LocalDate.parse(e.getElementsByTagName("fechaEstreno").item(0).getTextContent()));
-                p.setSinopsis(e.getElementsByTagName("sinopsis").item(0).getTextContent());
-
-                lista.add(p);
-            }
-
-            peliculaRepository.saveAll(lista);
-
-            System.out.println("Finalizado XML: " + fichero);
-
-        } catch (Exception e) {
-            System.err.println("Error en XML " + fichero + ": " + e.getMessage());
-        }
-
-        return CompletableFuture.completedFuture(null);
-    }
-
-
-    // Metodos para hacer el ejericicio 4
-
-    private HashMap<String, Integer> votacion = new HashMap<>();
-    Semaphore sem = new Semaphore(5);
-    Random random = new Random();
-
+    // A4 - Ejericicio 4
+    // Creamos el metodo de la votacion
     public HashMap<String, Integer> votacionOscars(int jurados) {
-        long inicio =System.currentTimeMillis();
+        ConcurrentHashMap<String, Integer> votacion = new ConcurrentHashMap<>(); // Creamoa la votacion
+        Semaphore sem = new Semaphore(5); // Con semaphore hacemos que solo puedan votar 5 a la vez
 
-        votacion.clear();
+        long inicio = System.currentTimeMillis();
 
-        List<Pelicula> peliculas = peliculaRepository.findAll();
+        List<Pelicula> peliculas = listar(); // Cogemos las peliculas
 
-        System.out.println("Peliculas encontradas en la Base de Datos(BD): " + peliculas.size());
-        for(Pelicula p : peliculas) {
-            System.out.println(" - " + p.getTitulo());
-        }
-
-        List<String> titulosPeliculas = new ArrayList<>();
 
         for (Pelicula p : peliculas) {
-            titulosPeliculas.add(p.getTitulo());
+            votacion.put(p.getTitulo(), 0);
         }
 
-        List<CompletableFuture<Void>> tareas = new ArrayList<>();
+        List<CompletableFuture<Void>> tareas = new ArrayList<>(); // Creamos la lista de tareas
 
         for (int i = 0; i < jurados; i++) {
-            tareas.add(votar(titulosPeliculas, i + 1));
+            tareas.add(asyncService.votar(peliculas, i + 1, sem, votacion)); // Recorremos los jurados con el for y anadimos en tareas las votaciones, cogemos el metodo votar de otra clase para que funcione la concurrencia
         }
 
-        CompletableFuture.allOf(tareas.toArray(new CompletableFuture[0])).join();
+        CompletableFuture.allOf(tareas.toArray(new CompletableFuture[0])).join(); // Paramos las votaciones
 
+
+        // Sacamos los resultados
         System.out.println("Votaciones finalizadas.");
         System.out.println("Resultado: ");
         System.out.println(votacion);
 
         long fin = System.currentTimeMillis();
 
-        long tiempoTotal = (fin - inicio);
+        long tiempoTotal = (fin - inicio); // Calculamos el tiempo total de la votacion
 
         System.out.println("Las votaciones de las peliculas han durado " + tiempoTotal + " milisegundos");
 
-        return votacion;
-    }
-
-
-    @Async("taskExecutor")
-    public CompletableFuture<Void> votar(List<String> titulosCandidatas, int idJurado) {
-        try {
-            sem.acquire();
-            try {
-                for (String titulo : titulosCandidatas) {
-                    int puntos = random.nextInt(11);
-                    System.out.println("El jurado " + idJurado + " vota con " +  puntos + " puntos a " + titulo);
-
-                    synchronized (votacion) {
-                        votacion.put(titulo, votacion.getOrDefault(titulo, 0) + puntos);
-                    }
-                }
-
-            } finally {
-                sem.release();
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return CompletableFuture.completedFuture(null);
+        return new HashMap<>(votacion);
     }
 }
 

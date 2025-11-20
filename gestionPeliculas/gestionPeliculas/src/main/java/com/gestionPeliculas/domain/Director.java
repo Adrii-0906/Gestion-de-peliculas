@@ -1,5 +1,7 @@
 package com.gestionPeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +22,7 @@ public class Director {
 
     // Relación 1:N con Pelicula
     @OneToMany(mappedBy = "director")
+    @JsonIgnore
     private List<Pelicula> peliculas;
 
 

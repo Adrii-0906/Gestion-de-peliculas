@@ -1,5 +1,6 @@
 package com.gestionPeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class Actor {
     private String nombre;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name="actor_pelicula",
             joinColumns = @JoinColumn(name="actor_id"),

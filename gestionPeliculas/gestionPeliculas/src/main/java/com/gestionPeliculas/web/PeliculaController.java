@@ -24,13 +24,11 @@ import java.util.List;
 public class PeliculaController {
     private final PeliculaService service;
 
-    /*
+
     @GetMapping
     public List<Pelicula> listar() {
         return service.listar();
     }
-
-     */
 
     @GetMapping("/{id}")
     public Pelicula buscarPorId(@PathVariable Long id) {
@@ -97,26 +95,21 @@ public class PeliculaController {
         return "Tiempo total (asíncrono): " + (fin - inicio) + " ms";
     }
 
+
     // A4 - Ejercicio 3
+    @PostMapping("/cargarPeliculas/{nombreCarpeta}") // Creamos el endpoint para importar las peliculas
+    public ResponseEntity<?> cargarPeliculasArchivo(@PathVariable String nombreCarpeta) throws IOException {
+        String rutaFichero = "gestionPeliculas/src/main/resources/" + nombreCarpeta; // Pasamos por parametro la ruta de las peliculas
 
-    @PostMapping("/cargarPeliculas/{nombreArchivo}")
-    public ResponseEntity<?> cargarPeliculasArchivo(@PathVariable String nombreArchivo) throws IOException {
-        String rutaFichero = "gestionPeliculas/src/main/resources/" + nombreArchivo;
-
-        service.importarCarpeta(rutaFichero);
+        service.importarCarpeta(rutaFichero); // Del servicePeliculas ejeutamos el importarCarpeta, con la ruta de la carpeta por parametro para imprimir las peliculas que se han importado
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Archivos importados correctamente");
     }
-    @GetMapping("/peliculas")
-    public List<Pelicula> mostrarPeliculas(){
-        return service.listar();
-    }
 
     // A4 - Ejercicio 4
-
-    @GetMapping("/oscar/{jurados}")
+    @GetMapping("/oscar/{jurados}") // Creamos el endpoint de los oscars
     public HashMap<String, Integer> votacionesOscars(@PathVariable int jurados) throws InterruptedException {
-        return service.votacionOscars(jurados);
+        return service.votacionOscars(jurados); // Devolvemos el metodo de service, pasando por parametro los jurados que van a votar
     }
 
 
