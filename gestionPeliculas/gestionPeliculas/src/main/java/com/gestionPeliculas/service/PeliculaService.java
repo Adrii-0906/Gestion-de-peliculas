@@ -1,5 +1,6 @@
 package com.gestionPeliculas.service;
 
+import com.gestionPeliculas.DTOPelicula.PeliculaDTO;
 import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.repository.PeliculaRepository;
 import lombok.*;
@@ -64,12 +65,15 @@ public class PeliculaService {
         return peliculas_aux;
     }
 
-    public List<Pelicula> listar() {
-        return peliculaRepository.findAll();
+    public List<PeliculaDTO> listar() {
+        return peliculaRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .toList();
     }
 
     public Pelicula buscarPorId(Long id) {
-        for (Pelicula p : listar()) {
+        for (Pelicula p : peliculaRepository.findAll()) {
             if (p.getId().equals(id)) {
                 return p;
             }
@@ -81,6 +85,18 @@ public class PeliculaService {
         .findFirst()                       // toma la primera coincidencia (si existe)
         .orElse(null);                     // devuelve esa película o null si no hay
         * */
+    }
+
+
+    private PeliculaDTO toDTO(Pelicula p) {
+        return new PeliculaDTO(
+                p.getId(),
+                p.getTitulo(),
+                p.getDuracion(),
+                p.getFechaEstreno(),
+                p.getSinopsis(),
+                p.getValoracion()
+        );
     }
 
     public void agregar(Pelicula pelicula) {
@@ -156,7 +172,7 @@ public class PeliculaService {
 
         long inicio = System.currentTimeMillis();
 
-        List<Pelicula> peliculas = listar(); // Cogemos las peliculas
+        List<Pelicula> peliculas = peliculaRepository.findAll(); // Cogemos las peliculas
 
 
         for (Pelicula p : peliculas) {

@@ -2,6 +2,7 @@ package com.gestionPeliculas.web;
 
 
 
+import com.gestionPeliculas.DTOPelicula.PeliculaDTO;
 import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.service.PeliculaService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class PeliculaController {
 
 
     @GetMapping
-    public List<Pelicula> listar() {
+    public List<PeliculaDTO> listar() {
         return service.listar();
     }
 
