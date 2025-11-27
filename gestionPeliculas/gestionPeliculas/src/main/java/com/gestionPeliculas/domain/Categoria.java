@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "categoria")
 @Data
@@ -20,4 +22,6 @@ public class Categoria {
     private String nombre;
 
 
+    @ManyToMany(mappedBy = "categorias")
+    private List<Pelicula> peliculas;
 }

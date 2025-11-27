@@ -31,5 +31,13 @@ public class Funcion {
     @Column(name = "formato")
     private String formato;
 
+    @ManyToOne
+    @JoinColumn(name = "id_sala")
+    private Sala sala;
+
+    @ManyToOne
+    @JoinColumn(name = "pelicula")
+    private Pelicula pelicula;
+
 
 }

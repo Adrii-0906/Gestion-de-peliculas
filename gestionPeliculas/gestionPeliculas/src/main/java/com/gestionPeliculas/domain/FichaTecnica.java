@@ -16,4 +16,7 @@ public class FichaTecnica {
     private String director;
     private int duracion;
     private String pais;
+
+    @OneToOne(mappedBy = "fichaTecnica")
+    private Pelicula pelicula;
 }

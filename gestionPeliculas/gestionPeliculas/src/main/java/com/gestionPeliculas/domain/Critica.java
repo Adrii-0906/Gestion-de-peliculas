@@ -26,4 +26,8 @@ public class Critica {
 
     @Column(name = "fecha")
     private LocalDate fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

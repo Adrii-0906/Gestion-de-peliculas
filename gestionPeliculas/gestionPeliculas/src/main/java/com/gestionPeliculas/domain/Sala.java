@@ -1,9 +1,12 @@
 package com.gestionPeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "sala")
@@ -21,4 +24,8 @@ public class Sala {
 
     @Column(name = "capacidad")
     private int capacidad;
+
+    @OneToMany(mappedBy = "sala")
+    @JsonIgnore
+    private List<Funcion> funciones;
 }

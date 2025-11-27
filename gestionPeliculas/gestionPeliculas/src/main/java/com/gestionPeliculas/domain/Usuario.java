@@ -1,9 +1,12 @@
 package com.gestionPeliculas.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -28,4 +31,8 @@ public class Usuario {
     @Column(name = "rol")
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private List<Critica> criticas;
 }

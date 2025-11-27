@@ -58,8 +58,12 @@ public class Pelicula {
         }
     }
 
-//    public void addActor(Actor actor){
-//        actores.add(actor);
-//        actor.getPeliculas().add(this);
-//    }
+
+    @OneToMany(mappedBy = "pelicula")
+    @JsonIgnore
+    private List<Funcion> funciones;
+
+    @OneToOne
+    @JoinColumn(name = "id_fichaTecnica", unique = true)
+    private FichaTecnica fichaTecnica;
 }

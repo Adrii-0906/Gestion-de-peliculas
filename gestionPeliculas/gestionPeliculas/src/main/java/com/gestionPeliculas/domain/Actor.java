@@ -18,15 +18,12 @@ public class Actor {
 
     private String nombre;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "actores")
     @JsonIgnore
-    @JoinTable(
-            name="actor_pelicula",
-            joinColumns = @JoinColumn(name="actor_id"),
-            inverseJoinColumns = @JoinColumn(name="pelicula_id"))
     private List<Pelicula> peliculas;
 
     public void addPelicula(Pelicula pelicula){
         peliculas.add(pelicula);
+        pelicula.getActores().add(this);
     }
 }
