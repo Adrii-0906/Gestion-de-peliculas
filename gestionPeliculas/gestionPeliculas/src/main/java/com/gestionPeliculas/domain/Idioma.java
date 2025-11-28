@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "idioma")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Idioma {
 
@@ -18,4 +20,8 @@ public class Idioma {
 
     @Column(name = "nombre")
     private String nombre;
+
+    // Relacion con pelicula
+    @ManyToMany(mappedBy = "idiomas")
+    private List<Pelicula> peliculas = new ArrayList<>();
 }

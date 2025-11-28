@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "critica")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Critica {
 
@@ -27,7 +26,13 @@ public class Critica {
     @Column(name = "fecha")
     private LocalDate fecha;
 
+    // relacion con usuario
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    // Relacion con pelicula
+    @ManyToOne
+    @JoinColumn(name = "pelicula")
+    private Pelicula pelicula;
 }

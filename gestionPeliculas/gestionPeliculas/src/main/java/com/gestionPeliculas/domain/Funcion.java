@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "funcion")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Funcion {
 
@@ -31,10 +30,12 @@ public class Funcion {
     @Column(name = "formato")
     private String formato;
 
+    // Relacion con sala
     @ManyToOne
     @JoinColumn(name = "id_sala")
     private Sala sala;
 
+    // Relacion con pelicula
     @ManyToOne
     @JoinColumn(name = "pelicula")
     private Pelicula pelicula;

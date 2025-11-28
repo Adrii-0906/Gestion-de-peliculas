@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "sala")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Sala {
 
@@ -25,6 +24,7 @@ public class Sala {
     @Column(name = "capacidad")
     private int capacidad;
 
+    // Relacion con funcion
     @OneToMany(mappedBy = "sala")
     @JsonIgnore
     private List<Funcion> funciones;

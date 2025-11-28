@@ -5,12 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "categoria")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Categoria {
 
@@ -23,5 +23,5 @@ public class Categoria {
 
 
     @ManyToMany(mappedBy = "categorias")
-    private List<Pelicula> peliculas;
+    private List<Pelicula> peliculas = new ArrayList<>();
 }

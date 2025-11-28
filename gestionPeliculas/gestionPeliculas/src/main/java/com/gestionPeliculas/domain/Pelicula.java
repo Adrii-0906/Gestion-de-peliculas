@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,23 +31,59 @@ public class Pelicula {
 
     private int valoracion;
 
-    @OneToOne
-    @JoinColumn(name = "ficha_id") // FK en la tabla Pelicula que apunta a FichaTecnica.
-    private FichaTecnica fichaTecnica;
 
+    // Relacion con director
     @ManyToOne
     @JoinColumn(name = "director_id")
-    @JsonManagedReference
     private Director director;
 
+    // Relacion con actor
     @ManyToMany
     @JoinTable(
-            name = "peliculas_actores",                             // nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "pelicula_id"),        // FK de esta entidad
-            inverseJoinColumns = @JoinColumn(name = "actor_id")     // FK de la otra entidad
+        name = "peliculas_actores",                             // nombre de la tabla intermedia
+        joinColumns = @JoinColumn(name = "pelicula_id"),        // FK de esta entidad
+        inverseJoinColumns = @JoinColumn(name = "actor_id")     // FK de la otra entidad
     )
     @JsonIgnore
-    private List<Actor> actores;
+    private List<Actor> actores = new ArrayList<>();
+
+    //Relacion con funcion
+    @OneToMany(mappedBy = "pelicula")
+    @JsonIgnore
+    private List<Funcion> funciones = new ArrayList<>();
+
+    // Relacion con critica
+    @OneToMany(mappedBy = "pelicula")
+    @JsonIgnore
+    private List<Critica> criticas = new ArrayList<>();
+
+    // Relacion con plataforma
+    @ManyToMany
+    @JoinTable(
+        name = "peliculas_plataformas",
+        joinColumns = @JoinColumn(name = "pelicula_id"),
+        inverseJoinColumns = @JoinColumn(name = "plataforma_id")
+    )
+    @JsonIgnore
+    private List<Plataforma> plataformas = new ArrayList<>();
+
+    // Relacion con categoria
+    @ManyToMany
+    @JoinTable (
+            name = "peliculas_categorias",
+            joinColumns = @JoinColumn(name = "pelicula_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private List<Categoria> categorias = new ArrayList<>();
+
+    // Relacion con idioma
+    @ManyToMany
+    @JoinTable(
+            name = "peliculas_idiomas",
+            joinColumns = @JoinColumn(name = "pelicula_id"),
+            inverseJoinColumns = @JoinColumn(name = "idioma_id")
+    )
+    private List<Idioma> idiomas = new ArrayList<>();
 
     // Mantener sincronizada una relación bidireccional Actor <-> Pelicula
     public void addActor(Actor a){
@@ -58,12 +95,4 @@ public class Pelicula {
         }
     }
 
-
-    @OneToMany(mappedBy = "pelicula")
-    @JsonIgnore
-    private List<Funcion> funciones;
-
-    @OneToOne
-    @JoinColumn(name = "id_fichaTecnica", unique = true)
-    private FichaTecnica fichaTecnica;
 }

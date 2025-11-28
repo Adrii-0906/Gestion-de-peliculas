@@ -1,22 +1,10 @@
 package com.gestionPeliculas.config;
 
-import com.gestionPeliculas.domain.Actor;
-import com.gestionPeliculas.domain.Director;
-import com.gestionPeliculas.domain.FichaTecnica;
-import com.gestionPeliculas.domain.Pelicula;
-import com.gestionPeliculas.repository.ActorRepository;
-import com.gestionPeliculas.repository.DirectorRepository;
-import com.gestionPeliculas.repository.FichaTecnicaRepository;
-import com.gestionPeliculas.repository.PeliculaRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 @Configuration
 public class DataLoader {
-
+/*
     // Este código debe ejecutarse automáticamente justo DESPUÉS de que arranque toda la aplicación.
     @Bean
     CommandLineRunner initData(ActorRepository actorRepo,
@@ -113,5 +101,8 @@ public class DataLoader {
             System.out.println(">>> DATOS DE PRUEBA INSERTADOS CORRECTAMENTE");
         };
     }
+
+
+ */
 }
 

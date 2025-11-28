@@ -6,12 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "usuario")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
 
@@ -32,7 +32,8 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
+    // Relacion con critica
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore
-    private List<Critica> criticas;
+    private List<Critica> criticas = new ArrayList<>();
 }
