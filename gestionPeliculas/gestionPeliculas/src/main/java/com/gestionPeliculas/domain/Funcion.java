@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "funcion")
@@ -16,16 +17,16 @@ public class Funcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "fecha")
     private LocalDate fecha;
 
     @Column(name = "hora")
-    private LocalDateTime hora;
+    private LocalTime hora;
 
     @Column(name = "precio")
-    private double precio;
+    private Double precio;
 
     @Column(name = "formato")
     private String formato;

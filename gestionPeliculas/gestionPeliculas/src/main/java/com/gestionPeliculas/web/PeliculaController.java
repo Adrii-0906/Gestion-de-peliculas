@@ -2,19 +2,15 @@ package com.gestionPeliculas.web;
 
 
 
-import com.gestionPeliculas.DTOPelicula.PeliculaDTO;
+import com.gestionPeliculas.DTOs.PeliculaDTO;
 import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.service.PeliculaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.gestionPeliculas.DTOPelicula;
+package com.gestionPeliculas.DTOs;
 
 
 import lombok.AllArgsConstructor;
@@ -10,11 +10,12 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PeliculaCreateUpdateDTO {
+public class PeliculaDTO {
 
+    private long id;
     private String titulo;
-    private int duracion;
+    private Integer duracion;
     private LocalDate fechaEstreno;
     private String sinopsis;
-    private int valorar;
+    private Integer valorar;
 }

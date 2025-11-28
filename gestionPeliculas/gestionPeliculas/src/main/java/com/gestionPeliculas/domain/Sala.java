@@ -16,13 +16,13 @@ public class Sala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "numero_sala")
-    private int numeroSala;
+    private Integer numeroSala;
 
     @Column(name = "capacidad")
-    private int capacidad;
+    private Integer capacidad;
 
     // Relacion con funcion
     @OneToMany(mappedBy = "sala")

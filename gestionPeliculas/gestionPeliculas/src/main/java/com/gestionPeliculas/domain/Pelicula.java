@@ -22,14 +22,14 @@ public class Pelicula {
     @Column(nullable = false, length = 120)
     private String titulo;
 
-    private int duracion;              // minutos
+    private Integer duracion;              // minutos
 
     @Column(name = "fecha_estreno")
     private LocalDate fechaEstreno;
 
     private String sinopsis;
 
-    private int valoracion;
+    private Integer valoracion;
 
 
     // Relacion con director

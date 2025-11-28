@@ -1,13 +1,12 @@
 package com.gestionPeliculas.service;
 
-import com.gestionPeliculas.DTOPelicula.PeliculaDTO;
+import com.gestionPeliculas.DTOs.PeliculaDTO;
 import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.repository.PeliculaRepository;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,13 +23,6 @@ import java.nio.file.Paths;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Stream;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 
 @Service
