@@ -1,0 +1,47 @@
+package com.gestionPeliculas.web;
+
+
+import com.gestionPeliculas.DTOs.PlataformaCreateUpdateDTO;
+import com.gestionPeliculas.DTOs.PlataformaDTO;
+import com.gestionPeliculas.service.PlataformaService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/plataformas")
+@RequiredArgsConstructor
+public class PlataformaController {
+
+    private final PlataformaService service;
+
+    @GetMapping
+    public List<PlataformaDTO> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    public PlataformaDTO buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public PlataformaDTO agregar(@Valid @RequestBody PlataformaCreateUpdateDTO dto) {
+        return service.agregar(dto);
+    }
+
+    @PutMapping("/{id}")
+    public PlataformaDTO actualizar(@PathVariable Long id, @Valid @RequestBody PlataformaCreateUpdateDTO dto) {
+        return service.actualizar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+}

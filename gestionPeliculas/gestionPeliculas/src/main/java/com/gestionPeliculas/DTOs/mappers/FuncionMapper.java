@@ -1,7 +1,7 @@
 package com.gestionPeliculas.DTOs.mappers;
 
 import com.gestionPeliculas.DTOs.FuncionDTO;
-import com.gestionPeliculas.DTOs.FunctionCreateUpdateDTO;
+import com.gestionPeliculas.DTOs.FuncionCreateUpdateDTO;
 import com.gestionPeliculas.domain.Funcion;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class FuncionMapper {
         );
     }
 
-    public Funcion toEntity(FunctionCreateUpdateDTO dto) {
+    public Funcion toEntity(FuncionCreateUpdateDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public class FuncionMapper {
         return funcion;
     }
 
-    public void updateEntity(FunctionCreateUpdateDTO dto, Funcion funcion) {
+    public void updateEntity(FuncionCreateUpdateDTO dto, Funcion funcion) {
         if (dto == null || funcion == null) {
             return;
         }

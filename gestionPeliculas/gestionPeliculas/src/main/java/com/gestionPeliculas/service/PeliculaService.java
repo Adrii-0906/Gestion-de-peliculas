@@ -1,10 +1,14 @@
 package com.gestionPeliculas.service;
 
+import com.gestionPeliculas.DTOs.PeliculaCreateUpdateDTO;
 import com.gestionPeliculas.DTOs.PeliculaDTO;
+import com.gestionPeliculas.DTOs.mappers.PeliculaMapper;
 import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.repository.PeliculaRepository;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -28,13 +34,16 @@ import java.util.stream.Stream;
 @Service
 @Getter
 public class PeliculaService {
-    private final List<Pelicula> peliculas = new ArrayList<>();
+    @Autowired
+    private AsyncService asyncService;
 
     @Autowired
     private PeliculaRepository peliculaRepository;
-
     @Autowired
-    private AsyncService asyncService;
+    private PeliculaMapper mapper;;
+    @Autowired
+    @Lazy
+    private PeliculaService self;
 
 //    public PeliculaService() {
 //        peliculas.add(new Pelicula(1L, "Interstellar", 169, LocalDate.of(2014, 11, 7),
@@ -47,30 +56,18 @@ public class PeliculaService {
 
 
 
-    public List<Pelicula> mejores_peliculas(int valoracion){
-        List<Pelicula> peliculas_aux= new ArrayList<>();
-        for (Pelicula p : peliculas) {
-            if (p.getValoracion()>=valoracion) {
-                peliculas_aux.add(p);
-            }
-        }
-        return peliculas_aux;
-    }
-
     public List<PeliculaDTO> listar() {
         return peliculaRepository.findAll()
                 .stream()
-                .map(this::toDTO)
+                .map(mapper::toDto)
                 .toList();
     }
 
-    public Pelicula buscarPorId(Long id) {
-        for (Pelicula p : peliculaRepository.findAll()) {
-            if (p.getId().equals(id)) {
-                return p;
-            }
-        }
-        return null;
+    // Nos retorna la película si la encuentra, de lo contrario lanza código 404
+    public PeliculaDTO buscarPorId(Long id) {
+        Pelicula p = peliculaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Película no encontrada con id: " + id));
+        return mapper.toDto(p);
         /*
         * return peliculas.stream()                 // convierte la lista en un flujo de datos
         .filter(p -> p.getId().equals(id)) // se queda solo con las películas cuyo id coincide
@@ -79,20 +76,31 @@ public class PeliculaService {
         * */
     }
 
-
-    private PeliculaDTO toDTO(Pelicula p) {
-        return new PeliculaDTO(
-                p.getId(),
-                p.getTitulo(),
-                p.getDuracion(),
-                p.getFechaEstreno(),
-                p.getSinopsis(),
-                p.getValoracion()
-        );
+    @Transactional
+    public PeliculaDTO agregar(PeliculaCreateUpdateDTO peliculaCreateUpdateDTO) {
+        Pelicula peliculaGuardar = mapper.toEntity(peliculaCreateUpdateDTO);
+        peliculaGuardar = peliculaRepository.save(peliculaGuardar);
+        return mapper.toDto(peliculaGuardar);
     }
 
-    public void agregar(Pelicula pelicula) {
-        peliculas.add(pelicula);
+    @Transactional
+    public PeliculaDTO actualizar(Long id, PeliculaCreateUpdateDTO peliculaCreateUpdateDTO) {
+        Pelicula peliculaExistente = peliculaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Película no encontrada con id: " + id));
+        mapper.updateEntity(peliculaCreateUpdateDTO, peliculaExistente);
+
+        Pelicula actualizada = peliculaRepository.save(peliculaExistente);
+        return mapper.toDto(actualizada);
+    }
+
+    @Transactional
+    // Elimina la película y no devuelve nada, si no la encuentra lanza código de error 404
+    public void eliminar(Long id) {
+        boolean existe = peliculaRepository.existsById(id);
+        if (!existe) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Película no encontrada con id: " + id);
+        }
+        peliculaRepository.deleteById(id);
     }
 
     public String tareaLenta(String titulo) {

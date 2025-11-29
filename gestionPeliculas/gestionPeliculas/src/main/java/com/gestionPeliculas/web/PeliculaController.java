@@ -2,9 +2,10 @@ package com.gestionPeliculas.web;
 
 
 
+import com.gestionPeliculas.DTOs.PeliculaCreateUpdateDTO;
 import com.gestionPeliculas.DTOs.PeliculaDTO;
-import com.gestionPeliculas.domain.Pelicula;
 import com.gestionPeliculas.service.PeliculaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,8 @@ public class PeliculaController {
     }
 
     @GetMapping("/{id}")
-    public Pelicula buscarPorId(@PathVariable Long id) {
+    public PeliculaDTO buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
-    }
-
-    @GetMapping("/peliculas_mejores")
-    public List<Pelicula> mejores_peliculas() {
-        return service.mejores_peliculas(5);
     }
     /*
         @GetMapping("/mejores_peliculas")
@@ -43,9 +39,23 @@ public class PeliculaController {
         }
     */
     @PostMapping
-    public void agregar(@RequestBody Pelicula pelicula) {
-        service.agregar(pelicula);
+    @ResponseStatus(HttpStatus.CREATED)
+    public PeliculaDTO agregar(@Valid @RequestBody PeliculaCreateUpdateDTO pelicula) {
+        return service.agregar(pelicula);
     }
+
+    @PutMapping("/{id}")
+    public PeliculaDTO actualizar(@PathVariable Long id, @Valid @RequestBody PeliculaCreateUpdateDTO pelicula) {
+        return service.actualizar(id, pelicula);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
+    }
+
+
 
     @GetMapping("/procesar")
     public String procesarPeliculas() {

@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FunctionCreateUpdateDTO {
+public class FuncionCreateUpdateDTO {
 
     @NotNull(message = "La fecha es obligatoria")
     private LocalDate fecha;
