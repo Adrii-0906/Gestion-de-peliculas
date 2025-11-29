@@ -1,4 +1,4 @@
 package com.gestionPeliculas.service;
 
-public class SeriesService {
+public class FuncionService {
 }
