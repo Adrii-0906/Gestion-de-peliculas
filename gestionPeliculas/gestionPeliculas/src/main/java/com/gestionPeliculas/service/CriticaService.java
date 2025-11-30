@@ -28,6 +28,13 @@ public class CriticaService {
                 .stream()
                 .map(criticaMapper::toDto)
                 .toList();
+
+        /*return criticaRepository.findAll()
+                .stream()
+                .map(criticaMapper::toDto)
+                .toList();
+
+         */
     }
 
     public CriticaDTO buscarPorId(Long id) {

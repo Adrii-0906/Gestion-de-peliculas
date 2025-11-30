@@ -17,5 +17,5 @@ public class PeliculaDTO {
     private Integer duracion;
     private LocalDate fechaEstreno;
     private String sinopsis;
-    private Integer valorar;
+    private Integer valoracion;
 }

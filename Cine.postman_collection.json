@@ -1,0 +1,628 @@
+{
+	"info": {
+		"_postman_id": "fcb007f6-e0ec-4829-a5b6-26de6cb4bc2d",
+		"name": "Cine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "50462521",
+		"_collection_link": "https://adrianre-dev-6266336.postman.co/workspace/Adri%C3%A1n-Ra%C3%B1a's-Workspace~89d0edd6-aca2-4771-899b-c23f07cea9a6/collection/50462521-fcb007f6-e0ec-4829-a5b6-26de6cb4bc2d?action=share&source=collection_link&creator=50462521"
+	},
+	"item": [
+		{
+			"name": "Gestion de peliculas",
+			"item": [
+				{
+					"name": "Actor",
+					"item": [
+						{
+							"name": "GET Actores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/actores"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Actores by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/actores/4"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Actores",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"nombre\": \"Oscar\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/actores"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Actores by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": "http://localhost:8081/api/actores/4"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Actores by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/actores/3"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Categoria",
+					"item": [
+						{
+							"name": "GET Categoria",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/categorias"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Categoria by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/categorias/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Categoria",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Suspense\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/categorias"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Categoria by Id",
+							"request": {
+								"method": "PUT",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Categoria by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/categorias/2"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Critica",
+					"item": [
+						{
+							"name": "GET Critica",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/criticas"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Critica by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/criticas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Critica",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"comentario\": \"La mejor peli del mundooooo\",\n    \"nota\": 10,\n    \"fecha\": \"2025-11-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/criticas"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Critica by Id",
+							"request": {
+								"method": "PUT",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Critica by Id",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Director",
+					"item": [
+						{
+							"name": "GET Director",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/directores"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Director by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/directores/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Director",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Teo Rojas\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/directores"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Director by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Amin Harou\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/directores/1"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Director by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/directores/1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Funcion",
+					"item": [
+						{
+							"name": "GET Funcion",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/funciones"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Funcion by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/funciones/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Funcion",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fecha\": \"2025-11-30\",\n    \"hora\": \"18:18:00\",\n    \"precio\": 6.5,\n    \"formato\": \"MP4\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/funciones"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Funcion",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": "http://localhost:8081/api/funciones/1"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Funcion",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/funciones/4"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Idioma",
+					"item": [
+						{
+							"name": "GET Idioma",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/idiomas"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Idiomas by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/idiomas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Idiomas",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Germany\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/idiomas"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Idioma by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": "http://localhost:8081/api/idiomas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Idioma by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/idiomas/1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pelicula",
+					"item": [
+						{
+							"name": "GET Pelicula",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/peliculas"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Pelicula by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/peliculas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Pelicula",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"Spiderman: Homecoming\",\n    \"duracion\": 119,\n    \"fechaEstreno\": \"2022-12-19\",\n    \"sinopsis\": \"Spiderman empieza sus aventurar con Tony Start\",\n    \"valoracion\": 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/peliculas"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Pelicula by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"Spiderman: Homecoming\",\n    \"duracion\": 119,\n    \"fechaEstreno\": \"2022-12-19\",\n    \"sinopsis\": \"Spiderman empieza sus aventurar con Tony Start\",\n    \"valoracion\": 9\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/peliculas/2"
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/peliculas/1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Plataforma",
+					"item": [
+						{
+							"name": "GET Plataforma",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/plataformas"
+							},
+							"response": []
+						},
+						{
+							"name": "GET plataformas by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/plataformas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Netflix\",\n    \"url\": \"https://www.netflix.com/es/\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/plataformas"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Plataforma by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n    \"id\": 2,\n    \"nombre\": \"AmazonPrime\",\n    \"url\": \"https://www.primevideo.com/offers/nonprimehomepage/ref=dv_web_force_root\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/plataformas/2"
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE  Plataforma by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/plataformas/2"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sala",
+					"item": [
+						{
+							"name": "GET Salas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/salas"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Salas by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/salas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Sala",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"numeroSala\": 3,\n    \"capacidad\": 40\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/salas"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Sala",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": "http://localhost:8081/api/salas/1"
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/salas/1"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Usuario",
+					"item": [
+						{
+							"name": "GET Usuario",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/usuarios"
+							},
+							"response": []
+						},
+						{
+							"name": "GET Usuario by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/api/usuarios/1"
+							},
+							"response": []
+						},
+						{
+							"name": "POST Usuario",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"Antonio\",\n    \"email\": \"antonioguaperas@gmail.com\",\n    \"password\": \"Guaperas1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/api/usuarios"
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Usuario",
+							"request": {
+								"method": "PUT",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Usuario",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

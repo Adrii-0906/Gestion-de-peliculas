@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CriticaMapper {
 
-    public CriticaCreateUpdateDTO toDto(Critica critica) {
+    public CriticaDTO toDto(Critica critica) {
         if (critica == null) return null;
-        CriticaCreateUpdateDTO dto = new CriticaCreateUpdateDTO();
+        CriticaDTO dto = new CriticaDTO();
+        dto.setId(critica.getId());
         dto.setComentario(critica.getComentario());
         dto.setNota(critica.getNota());
         dto.setFecha(critica.getFecha());

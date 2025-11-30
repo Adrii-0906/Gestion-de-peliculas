@@ -1,6 +1,7 @@
 package com.gestionPeliculas.DTOs;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
@@ -11,10 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SalaCreateUpdateDTO {
-    @NotBlank(message = "El numero de sala es obligatorio")
+    @NotNull(message = "El numero de sala es obligatorio")
     private Integer numeroSala;
 
-    @NotBlank(message = "La capacidad es obligatorio")
+    @NotNull(message = "La capacidad es obligatorio")
     @Positive(message = "La capadidad tiene que ser mayor que 0")
     private Integer capacidad;
 
