@@ -13,6 +13,7 @@ public class PeliculaMapper {
         return new PeliculaDTO(
                 pelicula.getId(),
                 pelicula.getTitulo(),
+                pelicula.getImagenUrl(),
                 pelicula.getDuracion(),
                 pelicula.getFechaEstreno(),
                 pelicula.getSinopsis(),
@@ -24,6 +25,7 @@ public class PeliculaMapper {
         if (peliculaCreateUpdateDTO == null) return null;
         Pelicula pelicula = new Pelicula();
         pelicula.setTitulo(peliculaCreateUpdateDTO.getTitulo());
+        pelicula.setImagenUrl(peliculaCreateUpdateDTO.getImagenUrl());
         pelicula.setDuracion(peliculaCreateUpdateDTO.getDuracion());
         pelicula.setFechaEstreno(peliculaCreateUpdateDTO.getFechaEstreno());
         pelicula.setSinopsis(peliculaCreateUpdateDTO.getSinopsis());
@@ -35,6 +37,7 @@ public class PeliculaMapper {
         if (peliculaCreateUpdateDTO == null || pelicula == null) return;
 
         pelicula.setTitulo(peliculaCreateUpdateDTO.getTitulo());
+        pelicula.setImagenUrl(peliculaCreateUpdateDTO.getImagenUrl());
         pelicula.setDuracion(peliculaCreateUpdateDTO.getDuracion());
         pelicula.setFechaEstreno(peliculaCreateUpdateDTO.getFechaEstreno());
         pelicula.setSinopsis(peliculaCreateUpdateDTO.getSinopsis());

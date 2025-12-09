@@ -22,6 +22,9 @@ public class Pelicula {
     @Column(nullable = false, length = 120)
     private String titulo;
 
+    @Column(length = 500) // 500 caracteres por si la URL es larga
+    private String imagenUrl;
+
     private Integer duracion;              // minutos
 
     @Column(name = "fecha_estreno")

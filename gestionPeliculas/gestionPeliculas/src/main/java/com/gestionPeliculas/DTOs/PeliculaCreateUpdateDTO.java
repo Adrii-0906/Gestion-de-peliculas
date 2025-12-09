@@ -17,6 +17,9 @@ public class PeliculaCreateUpdateDTO {
     @NotBlank(message = "El título es obligatorio, no puede estar vacío ni ser nulo")  // No nulo + no vacío
     private String titulo;
 
+    @NotBlank(message = "La URL de la imagen es obligatoria")
+    private String imagenUrl;
+
     @NotNull(message = "La duración es obligatoria")
     private Integer duracion;
 
