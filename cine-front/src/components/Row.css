@@ -1,0 +1,45 @@
+/* Row.css */
+
+.row-container {
+    margin-left: 20px;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.row-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.row-posters {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll; /* Permite scroll horizontal */
+    padding: 20px 0 20px 0; /* Padding para que el efecto zoom no corte la imagen */
+
+    /* Ocultar barra de scroll en Chrome, Safari y Opera */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Ocultar barra de scroll (continuación) */
+.row-posters::-webkit-scrollbar {
+    display: none;
+}
+
+.row-poster {
+    object-fit: contain;
+    width: 100%;
+    max-height: 250px; /* Altura de las carátulas */
+    margin-right: 15px;
+    transition: transform 450ms; /* La magia del zoom suave */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* EFECTO HOVER TIPO NETFLIX */
+.row-poster:hover {
+    transform: scale(1.1); /* Crece un 10% */
+    opacity: 1;
+}

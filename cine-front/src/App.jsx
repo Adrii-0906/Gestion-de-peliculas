@@ -1,19 +1,27 @@
 import { Routes, Route } from 'react-router-dom';
+
+// IMPORTS
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
-// BORRA LA LÍNEA DE IMPORT PELICULAFORM
+import PeliculaForm from './components/PeliculaForm';
+
+// CORRECCIÓN AQUÍ: Importa el archivo con SU NOMBRE REAL
 import PeliculaDetail from './pages/PeliculaDetail';
 
 function App() {
   return (
-    <div style={{ backgroundColor: '#141414', minHeight: '100vh', color: 'white' }}>
+    <>
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
 
-        {/* BORRA LA LÍNEA DE ROUTE /crear */}
+        {/* CORRECCIÓN AQUÍ: Usa el componente con el nombre nuevo */}
+        <Route path="/peliculas/:id" element={<PeliculaDetail />} />
 
-        <Route path="/pelicula/:id" element={<PeliculaDetail />} />
+        <Route path="/crear-pelicula" element={<PeliculaForm />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

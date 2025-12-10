@@ -1,89 +1,173 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
-import api from '../services/api';      // Tu Backend
-import { getMovieImages } from '../services/tmdb'; // API Externa
 
-function PeliculaDetail() {
-  const { id } = useParams();
-  const [peli, setPeli] = useState(null);
-  const [tmdbData, setTmdbData] = useState(null);
+const PeliculaDetail = () => {
+    const { id } = useParams();
+    const [pelicula, setPeliculas] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // 1. Cargamos datos de TU base de datos (Directores, Actores...)
-    api.get(`/peliculas/${id}`).then(async (res) => {
-        const datosBackend = res.data;
-        setPeli(datosBackend);
+    useEffect(() => {
+        // Cargar datos
+        axios.get(`http://localhost:8081/api/peliculas/${id}`)
+            .then(res => {
+                setPeliculas(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, [id]);
 
-        // 2. Usamos el título para buscar el fondo gigante en TMDB
-        const imagenes = await getMovieImages(datosBackend.titulo);
-        setTmdbData(imagenes);
-    });
-  }, [id]);
+    // --- ESTILOS VISUALES (CSS-in-JS) ---
+    const styles = {
+        container: {
+            minHeight: '100vh',
+            backgroundColor: '#141414', // Fondo Netflix
+            color: 'white',
+            paddingTop: '90px', // Para que no lo tape el Navbar
+            paddingBottom: '50px',
+            fontFamily: 'Arial, sans-serif'
+        },
+        contentWrapper: {
+            maxWidth: '1100px',
+            margin: '0 auto',
+            padding: '0 20px',
+            display: 'flex',
+            flexWrap: 'wrap', // Para móviles
+            gap: '40px'
+        },
+        // Columna Izquierda: Póster
+        posterColumn: {
+            flex: '0 0 300px', // Ancho fijo de 300px
+            maxWidth: '100%'
+        },
+        posterImage: {
+            width: '100%',
+            borderRadius: '8px',
+            boxShadow: '0 0 20px rgba(0,0,0,0.8)', // Sombra elegante
+            border: '1px solid #333'
+        },
+        // Columna Derecha: Info
+        infoColumn: {
+            flex: '1', // Ocupa el resto del espacio
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+        },
+        title: {
+            fontSize: '3rem',
+            fontWeight: 'bold',
+            marginBottom: '10px',
+            lineHeight: '1.1'
+        },
+        metaData: {
+            display: 'flex',
+            gap: '15px',
+            marginBottom: '20px',
+            fontSize: '1.1rem',
+            color: '#bcbcbc'
+        },
+        badge: {
+            border: '1px solid #bcbcbc',
+            padding: '2px 8px',
+            borderRadius: '3px',
+            fontSize: '0.8rem'
+        },
+        synopsisTitle: {
+            fontSize: '1.2rem',
+            fontWeight: 'bold',
+            marginTop: '20px',
+            marginBottom: '10px',
+            color: 'white'
+        },
+        synopsis: {
+            fontSize: '1.1rem',
+            lineHeight: '1.6',
+            color: '#dcdcdc',
+            maxWidth: '700px'
+        },
+        castSection: {
+            marginTop: '30px',
+            paddingTop: '20px',
+            borderTop: '1px solid #333'
+        },
+        btnBack: {
+            display: 'inline-block',
+            marginBottom: '20px',
+            color: '#bcbcbc',
+            textDecoration: 'none',
+            fontSize: '1.2rem'
+        }
+    };
 
-  if (!peli) return <div style={{color:'white', padding:'20px'}}>Cargando...</div>;
+    if (loading) return <div style={{...styles.container, textAlign: 'center'}}><h2>Cargando...</h2></div>;
+    if (!pelicula) return <div style={{...styles.container, textAlign: 'center'}}><h2>Película no encontrada</h2></div>;
 
-  // Estilo para el fondo tipo Netflix
-  const headerStyle = {
-    backgroundImage: `linear-gradient(to top, #141414, transparent), url(${tmdbData?.backdrop || ''})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'top center',
-    minHeight: '80vh',
-    display: 'flex',
-    alignItems: 'flex-end',
-    padding: '40px'
-  };
+    // URL de imagen segura (por si viene vacía)
+    const imagenSegura = pelicula.imagenUrl && pelicula.imagenUrl.startsWith('http')
+        ? pelicula.imagenUrl
+        : "https://via.placeholder.com/300x450?text=Sin+Imagen";
 
-  return (
-    <div>
-        <Link to="/" style={{ position:'absolute', top:'20px', left:'20px', color:'white', textDecoration:'none', zIndex:10, background:'rgba(0,0,0,0.5)', padding:'5px 10px', borderRadius:'5px' }}>⬅ Volver</Link>
+    return (
+        <div style={styles.container}>
+            <div style={styles.contentWrapper}>
 
-        {/* HERO SECTION CON FONDO */}
-        <div style={headerStyle}>
-            <div style={{ maxWidth: '800px', textShadow: '2px 2px 4px black' }}>
-                <h1 style={{ fontSize: '4rem', margin: 0 }}>{peli.titulo}</h1>
-                <div style={{ display:'flex', gap:'15px', margin:'10px 0', fontSize:'1.2rem', fontWeight:'bold' }}>
-                    <span style={{color: '#46d369'}}>Puntuación: {peli.valoracion}/5</span>
-                    <span>{peli.fechaEstreno}</span>
-                    <span>{peli.duracion} min</span>
+                {/* Botón Volver */}
+                <div style={{ width: '100%' }}>
+                    <Link to="/" style={styles.btnBack}>← Volver al inicio</Link>
                 </div>
-                <p style={{ fontSize: '1.3rem', lineHeight: '1.5' }}>{peli.sinopsis}</p>
-            </div>
-        </div>
 
-        {/* DETALLES TÉCNICOS (Tu Base de Datos) */}
-        <div style={{ padding: '40px', background: '#141414' }}>
-            <h2>Detalles de Producción</h2>
-
-            <div style={{ display: 'flex', gap: '50px', flexWrap: 'wrap' }}>
-
-                {/* Director */}
-                <div>
-                    <h3 style={{ color: '#777' }}>Director</h3>
-                    <p style={{ fontSize: '1.2rem' }}>
-                        {peli.director ? peli.director.nombre : 'No especificado'}
-                    </p>
+                {/* --- IZQUIERDA: PÓSTER --- */}
+                <div style={styles.posterColumn}>
+                    <img
+                        src={imagenSegura}
+                        alt={pelicula.titulo}
+                        style={styles.posterImage}
+                        onError={(e) => {e.target.src="https://via.placeholder.com/300x450?text=Error"}}
+                    />
                 </div>
 
-                {/* Actores */}
-                <div>
-                    <h3 style={{ color: '#777' }}>Reparto Principal</h3>
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                        {peli.actores && peli.actores.length > 0 ? (
-                            peli.actores.map(actor => (
-                                <span key={actor.id} style={{ background: '#333', padding: '5px 15px', borderRadius: '20px' }}>
-                                    {actor.nombre}
-                                </span>
-                            ))
-                        ) : (
-                            <p>No hay actores registrados.</p>
-                        )}
+                {/* --- DERECHA: INFORMACIÓN --- */}
+                <div style={styles.infoColumn}>
+                    <h1 style={styles.title}>{pelicula.titulo}</h1>
+
+                    <div style={styles.metaData}>
+                        <span style={{color: '#46d369', fontWeight: 'bold'}}>
+                            {pelicula.valoracion * 10}% Coincidencia
+                        </span>
+                        <span>{pelicula.fechaEstreno ? pelicula.fechaEstreno.substring(0,4) : 'Año desc.'}</span>
+                        <span style={styles.badge}>HD</span>
+                        <span>{pelicula.duracion} min</span>
+                    </div>
+
+                    <h3 style={styles.synopsisTitle}>Sinopsis</h3>
+                    <p style={styles.synopsis}>{pelicula.sinopsis}</p>
+
+                    <div style={styles.castSection}>
+                        <p>
+                            <span style={{color: '#777'}}>Director: </span>
+                            {pelicula.director?.nombre || "No especificado"}
+                        </p>
+                        <p>
+                            <span style={{color: '#777'}}>Reparto: </span>
+                            {pelicula.actores && pelicula.actores.length > 0
+                                ? pelicula.actores.map(a => a.nombre).join(", ")
+                                : "No registrados"}
+                        </p>
+                    </div>
+
+                    <div style={{marginTop: '30px'}}>
+                         <button className="btn btn-danger btn-lg" style={{marginRight: '10px'}}>
+                            ▶ Reproducir
+                         </button>
                     </div>
                 </div>
 
             </div>
         </div>
-    </div>
-  );
-}
+    );
+};
 
 export default PeliculaDetail;

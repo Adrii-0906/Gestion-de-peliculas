@@ -1,38 +1,37 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import MoviePoster from './MoviePoster';
+import './Row.css'; // Asegúrate de crear este archivo CSS que te paso abajo
 
-function Row({ titulo, peliculas }) {
-  if (!peliculas || peliculas.length === 0) return null;
+const Row = ({ titulo, peliculas }) => {
 
-  return (
-    <div style={{ marginBottom: '40px', paddingLeft: '20px' }}>
-      <h2 style={{ fontSize: '1.5rem', marginBottom: '15px', color: '#e5e5e5' }}>{titulo}</h2>
+    // URL base por si las imágenes vienen solo con la ruta parcial (tipo TMDB)
+    // Si tus URLs ya son completas (http...), esto no romperá nada.
+    const base_url = "https://image.tmdb.org/t/p/original/";
 
-      <div style={{
-        display: 'flex',
-        gap: '15px',
-        overflowX: 'auto', // Scroll lateral
-        paddingBottom: '20px',
-        scrollbarWidth: 'none' // Ocultar barra de scroll en Firefox
-      }}>
-        {/* Estilo para ocultar barra en Chrome */}
-        <style>{`
-          div::-webkit-scrollbar { display: none; }
-        `}</style>
+    return (
+        <div className="row-container">
+            <h2 className="row-title">{titulo}</h2>
 
-        {peliculas.map(peli => (
-          <Link key={peli.id} to={`/pelicula/${peli.id}`} style={{ minWidth: '200px', textDecoration: 'none', transition: 'transform 0.3s' }}>
-             <div style={{ borderRadius: '4px', overflow: 'hidden' }}
-                  onMouseEnter={e => e.currentTarget.parentElement.style.transform = 'scale(1.05)'}
-                  onMouseLeave={e => e.currentTarget.parentElement.style.transform = 'scale(1)'}
-             >
-                <MoviePoster titulo={peli.titulo} />
-             </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
+            <div className="row-posters">
+                {peliculas.map(movie => (
+                    // --- AQUÍ ESTÁ EL ARREGLO: 'peliculas' en PLURAL ---
+                    <Link key={movie.id} to={`/peliculas/${movie.id}`}>
+                       <img
+                           className="row-poster"
+                           // Si hay URL úsala, si no, pon la imagen de relleno
+                           src={movie.imagenUrl ? movie.imagenUrl : "https://via.placeholder.com/200x300?text=Sin+Imagen"}
+                           alt={movie.titulo}
+                           // Si la URL existía pero falló al cargar, pon la imagen de error
+                           onError={(e) => {
+                               e.target.onerror = null;
+                               e.target.src = "https://via.placeholder.com/200x300?text=No+Disponible";
+                           }}
+                       />
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default Row;
