@@ -32,6 +32,9 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     // Relacion con critica
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore

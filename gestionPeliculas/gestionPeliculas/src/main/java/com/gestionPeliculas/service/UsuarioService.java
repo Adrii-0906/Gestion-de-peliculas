@@ -31,7 +31,8 @@ public class UsuarioService {
 
     public UsuarioDTO buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con id: " + id));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con id: " + id));
         return usuarioMapper.toDto(usuario);
     }
 
@@ -45,7 +46,8 @@ public class UsuarioService {
     @Transactional
     public UsuarioDTO actualizar(Long id, UsuarioCreateUpdateDTO dto) {
         Usuario usuarioExistente = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con id: " + id));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con id: " + id));
 
         usuarioMapper.updateEntity(dto, usuarioExistente);
         Usuario actualizado = usuarioRepository.save(usuarioExistente);
@@ -58,5 +60,17 @@ public class UsuarioService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con id: " + id);
         }
         usuarioRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public UsuarioDTO login(com.gestionPeliculas.DTOs.LoginDTO dto) {
+        Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas"));
+
+        if (!usuario.getPassword().equals(dto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
+        }
+
+        return usuarioMapper.toDto(usuario);
     }
 }

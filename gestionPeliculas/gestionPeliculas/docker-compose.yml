@@ -1,6 +1,18 @@
-version: '3.8'
-
 services:
+  app:
+    build: .
+    container_name: spring_app
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/cine
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
+    restart: always
+
   db:
     image: postgres:16
     container_name: postgres_db

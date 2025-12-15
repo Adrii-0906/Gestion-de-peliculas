@@ -1,6 +1,5 @@
 package com.gestionPeliculas.web;
 
-
 import com.gestionPeliculas.DTOs.UsuarioCreateUpdateDTO;
 import com.gestionPeliculas.DTOs.UsuarioDTO;
 import com.gestionPeliculas.service.UsuarioService;
@@ -43,5 +42,10 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {
         service.eliminar(id);
+    }
+
+    @PostMapping("/login")
+    public UsuarioDTO login(@Valid @RequestBody com.gestionPeliculas.DTOs.LoginDTO dto) {
+        return service.login(dto);
     }
 }

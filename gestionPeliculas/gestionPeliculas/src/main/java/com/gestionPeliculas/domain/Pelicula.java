@@ -10,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "peliculas")
-@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
-@AllArgsConstructor      // ✅ genera constructor con todos los campos
+@Data // ✅ Lombok genera getters, setters, toString, equals, hashCode
+@AllArgsConstructor // ✅ genera constructor con todos los campos
 @NoArgsConstructor
 public class Pelicula {
 
@@ -25,15 +25,15 @@ public class Pelicula {
     @Column(length = 500) // 500 caracteres por si la URL es larga
     private String imagenUrl;
 
-    private Integer duracion;              // minutos
+    private Integer duracion; // minutos
 
     @Column(name = "fecha_estreno")
     private LocalDate fechaEstreno;
 
+    @Column(length = 2000)
     private String sinopsis;
 
     private Integer valoracion;
-
 
     // Relacion con director
     @ManyToOne
@@ -42,15 +42,13 @@ public class Pelicula {
 
     // Relacion con actor
     @ManyToMany
-    @JoinTable(
-        name = "peliculas_actores",                             // nombre de la tabla intermedia
-        joinColumns = @JoinColumn(name = "pelicula_id"),        // FK de esta entidad
-        inverseJoinColumns = @JoinColumn(name = "actor_id")     // FK de la otra entidad
+    @JoinTable(name = "peliculas_actores", // nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "pelicula_id"), // FK de esta entidad
+            inverseJoinColumns = @JoinColumn(name = "actor_id") // FK de la otra entidad
     )
-    @JsonIgnore
     private List<Actor> actores = new ArrayList<>();
 
-    //Relacion con funcion
+    // Relacion con funcion
     @OneToMany(mappedBy = "pelicula")
     @JsonIgnore
     private List<Funcion> funciones = new ArrayList<>();
@@ -62,34 +60,22 @@ public class Pelicula {
 
     // Relacion con plataforma
     @ManyToMany
-    @JoinTable(
-        name = "peliculas_plataformas",
-        joinColumns = @JoinColumn(name = "pelicula_id"),
-        inverseJoinColumns = @JoinColumn(name = "plataforma_id")
-    )
+    @JoinTable(name = "peliculas_plataformas", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "plataforma_id"))
     @JsonIgnore
     private List<Plataforma> plataformas = new ArrayList<>();
 
     // Relacion con categoria
     @ManyToMany
-    @JoinTable (
-            name = "peliculas_categorias",
-            joinColumns = @JoinColumn(name = "pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id")
-    )
+    @JoinTable(name = "peliculas_categorias", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();
 
     // Relacion con idioma
     @ManyToMany
-    @JoinTable(
-            name = "peliculas_idiomas",
-            joinColumns = @JoinColumn(name = "pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name = "idioma_id")
-    )
+    @JoinTable(name = "peliculas_idiomas", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "idioma_id"))
     private List<Idioma> idiomas = new ArrayList<>();
 
     // Mantener sincronizada una relación bidireccional Actor <-> Pelicula
-    public void addActor(Actor a){
+    public void addActor(Actor a) {
         if (!actores.contains(a)) {
             actores.add(a);
         }

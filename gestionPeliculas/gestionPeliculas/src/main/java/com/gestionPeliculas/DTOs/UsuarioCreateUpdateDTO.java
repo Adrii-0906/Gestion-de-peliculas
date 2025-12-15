@@ -20,4 +20,6 @@ public class UsuarioCreateUpdateDTO {
 
     @NotBlank(message = "La contrasena es obligatoria")
     private String password;
+
+    private String avatar;
 }

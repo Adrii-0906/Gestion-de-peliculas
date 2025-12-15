@@ -1,11 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-prime-bg: #0F171E;
+  --color-prime-bg-light: #1A242F;
+  --color-prime-bg-hover: #2A3847;
+  --color-prime-blue: #00A8E1;
+  --color-prime-blue-hover: #00C8FF;
+  --color-prime-text: #FFFFFF;
+  --color-prime-text-secondary: #8197A4;
+  --color-prime-border: #425265;
+}
+
 :root {
-  background-color: #141414; /* Negro Netflix */
-  color: #ffffff;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', 'Amazon Ember', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: #FFFFFF;
+  background-color: #0F171E;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  background-color: #141414;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #0F171E;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F171E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #425265;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00A8E1;
+}
+
+::selection {
+  background: rgba(0, 168, 225, 0.3);
+  color: #fff;
 }
