@@ -44,6 +44,11 @@ public class UsuarioController {
         service.eliminar(id);
     }
 
+    @PatchMapping("/{id}/estado")
+    public UsuarioDTO cambiarEstado(@PathVariable Long id, @RequestParam Boolean activo) {
+        return service.cambiarEstado(id, activo);
+    }
+
     @PostMapping("/login")
     public UsuarioDTO login(@Valid @RequestBody com.gestionPeliculas.DTOs.LoginDTO dto) {
         return service.login(dto);

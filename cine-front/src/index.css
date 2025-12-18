@@ -67,3 +67,16 @@ html {
   background: rgba(0, 168, 225, 0.3);
   color: #fff;
 }
+
+/* Ensure all buttons and clickable elements show pointer cursor */
+button,
+[role="button"],
+a,
+select,
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+.cursor-pointer {
+  cursor: pointer;
+}

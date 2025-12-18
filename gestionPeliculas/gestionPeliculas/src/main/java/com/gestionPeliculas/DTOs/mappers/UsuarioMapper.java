@@ -16,7 +16,9 @@ public class UsuarioMapper {
                 usuario.getUsername(),
                 usuario.getEmail(),
                 usuario.getPassword(),
-                usuario.getAvatar());
+                usuario.getAvatar(),
+                usuario.getRol() != null ? usuario.getRol().toString() : "USER",
+                usuario.getActivo() != null ? usuario.getActivo() : true);
     }
 
     public Usuario toEntity(UsuarioCreateUpdateDTO dto) {
@@ -27,6 +29,8 @@ public class UsuarioMapper {
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(dto.getPassword());
         usuario.setAvatar(dto.getAvatar());
+        usuario.setRol(com.gestionPeliculas.domain.Rol.USUARIO);
+        usuario.setActivo(true);
         return usuario;
     }
 

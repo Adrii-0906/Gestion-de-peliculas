@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_KEY = '902a810e1592fca7ecdc07b64ee70575';
+// API Key desde variable de entorno
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const TMDB_URL = 'https://api.themoviedb.org/3';
 const IMAGE_PATH = 'https://image.tmdb.org/t/p/w500';
 const BACKDROP_PATH = 'https://image.tmdb.org/t/p/original';
@@ -99,7 +100,7 @@ export const getMovieImages = async (titulo) => {
         if (response.data.results.length > 0) {
             const movie = response.data.results[0];
             return {
-                poster: movie.poster_path ? `${IMAGE_PATH}${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image',
+                poster: movie.poster_path ? `${IMAGE_PATH}${movie.poster_path}` : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNzUwIiB2aWV3Qm94PSIwIDAgNTAwIDc1MCI+CiAgPHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI3NTAiIGZpbGw9IiMzMzMiIC8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iNDAiPk5vIEltYWdlPC90ZXh0Pgo8L3N2Zz4=",
                 backdrop: movie.backdrop_path ? `${BACKDROP_PATH}${movie.backdrop_path}` : null,
                 overview: movie.overview,
                 puntuacion: movie.vote_average
@@ -168,5 +169,69 @@ export const getMovieTrailer = async (titulo) => {
     } catch (error) {
         console.error("Error getting movie trailer:", error);
         return null;
+    }
+};
+
+// Get movie age certification from TMDB
+export const getMovieCertification = async (titulo) => {
+    if (!titulo) return null;
+
+    try {
+        // Search for movie to get TMDB ID
+        const searchRes = await axios.get(`${TMDB_URL}/search/movie`, {
+            params: {
+                api_key: API_KEY,
+                query: titulo,
+                language: 'es-ES'
+            }
+        });
+
+        if (searchRes.data.results.length === 0) return null;
+
+        const tmdbId = searchRes.data.results[0].id;
+
+        // Get release dates with certifications
+        const releaseRes = await axios.get(`${TMDB_URL}/movie/${tmdbId}/release_dates`, {
+            params: { api_key: API_KEY }
+        });
+
+        // Try to find Spain (ES) certification first, then US
+        const countries = ['ES', 'US', 'GB', 'DE', 'FR'];
+        let certification = null;
+
+        for (const country of countries) {
+            const release = releaseRes.data.results.find(r => r.iso_3166_1 === country);
+            if (release && release.release_dates.length > 0) {
+                const cert = release.release_dates.find(rd => rd.certification)?.certification;
+                if (cert) {
+                    certification = cert;
+                    break;
+                }
+            }
+        }
+
+        // Convert certification to our age system
+        if (!certification) return 12; // Default
+
+        // Map common certifications to our system
+        const certMap = {
+            // Spain
+            'TP': 0, 'Apta': 0, 'APTA': 0,
+            '7': 7, '+7': 7,
+            '12': 12, '+12': 12,
+            '16': 16, '+16': 16,
+            '18': 18, '+18': 18, 'X': 18,
+            // US
+            'G': 0, 'PG': 7, 'PG-13': 12, 'R': 16, 'NC-17': 18,
+            // UK
+            'U': 0, 'PG': 7, '12A': 12, '15': 16, '18': 18,
+            // Germany
+            '0': 0, '6': 7, '16': 16
+        };
+
+        return certMap[certification] ?? 12;
+    } catch (error) {
+        console.error("Error getting certification:", error);
+        return 12;
     }
 };

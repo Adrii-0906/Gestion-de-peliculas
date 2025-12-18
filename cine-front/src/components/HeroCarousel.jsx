@@ -140,27 +140,7 @@ function HeroCarousel({ peliculas }) {
                 </div>
             </div>
 
-            {/* Slide Indicators */}
-            <div className="absolute bottom-6 right-6 lg:right-10 flex items-center gap-2 z-20">
-                {peliculas.map((_, idx) => (
-                    <button
-                        key={idx}
-                        onClick={() => {
-                            setIsTransitioning(true);
-                            setTimeout(() => {
-                                setCurrentIndex(idx);
-                                setIsTransitioning(false);
-                            }, 300);
-                        }}
-                        className="h-1 rounded-full transition-all duration-300"
-                        style={{
-                            width: idx === currentIndex ? '32px' : '16px',
-                            backgroundColor: idx === currentIndex ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)'
-                        }}
-                        aria-label={`Ir a slide ${idx + 1}`}
-                    />
-                ))}
-            </div>
+
         </div>
     );
 }

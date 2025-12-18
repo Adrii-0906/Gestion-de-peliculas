@@ -7,7 +7,21 @@ const MovieManager = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [ageFilter, setAgeFilter] = useState('all'); // 'all', 'kids', 'adult'
     const [deleteConfirm, setDeleteConfirm] = useState(null);
+
+    // Helper para mostrar badge de edad
+    const getAgeBadge = (edad) => {
+        const styles = {
+            0: { bg: 'rgba(34, 197, 94, 0.2)', color: '#22c55e', label: 'TP' },
+            7: { bg: 'rgba(59, 130, 246, 0.2)', color: '#3b82f6', label: '+7' },
+            12: { bg: 'rgba(234, 179, 8, 0.2)', color: '#eab308', label: '+12' },
+            16: { bg: 'rgba(249, 115, 22, 0.2)', color: '#f97316', label: '+16' },
+            18: { bg: 'rgba(239, 68, 68, 0.2)', color: '#ef4444', label: '+18' }
+        };
+        const s = styles[edad] || styles[12];
+        return <span style={{ backgroundColor: s.bg, color: s.color, padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold' }}>{s.label}</span>;
+    };
 
     useEffect(() => {
         fetchMovies();
@@ -34,9 +48,13 @@ const MovieManager = () => {
         }
     };
 
-    const filteredMovies = movies.filter(movie =>
-        movie.titulo?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredMovies = movies.filter(movie => {
+        const matchesSearch = movie.titulo?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesAge = ageFilter === 'all' ||
+            (ageFilter === 'kids' && (movie.edadMinima || 12) <= 7) ||
+            (ageFilter === 'adult' && (movie.edadMinima || 12) > 7);
+        return matchesSearch && matchesAge;
+    });
 
     if (loading) {
         return (
@@ -92,16 +110,35 @@ const MovieManager = () => {
                     </div>
                 </div>
 
+                {/* Age Filter Tabs */}
+                <div className="flex gap-2 mb-6">
+                    {[{ key: 'all', label: 'Todas' }, { key: 'kids', label: '👶 Niños (0-7)' }, { key: 'adult', label: '🎬 Mayores (+12)' }].map(tab => (
+                        <button
+                            key={tab.key}
+                            onClick={() => setAgeFilter(tab.key)}
+                            className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                            style={{
+                                backgroundColor: ageFilter === tab.key ? '#00A8E1' : '#1A242F',
+                                color: ageFilter === tab.key ? 'white' : '#8197A4',
+                                border: `1px solid ${ageFilter === tab.key ? '#00A8E1' : '#425265'}`
+                            }}
+                        >
+                            {tab.label}
+                        </button>
+                    ))}
+                </div>
+
                 {/* Movies Table */}
                 <div className="rounded-xl overflow-hidden" style={{ backgroundColor: '#1A242F', border: '1px solid #425265' }}>
                     {/* Table Header */}
                     <div className="hidden lg:grid grid-cols-12 gap-4 p-4 font-semibold text-sm uppercase tracking-wider" style={{ color: '#8197A4', borderBottom: '1px solid #425265' }}>
-                        <div className="col-span-4">Película</div>
+                        <div className="col-span-3">Película</div>
                         <div className="col-span-2">Director</div>
-                        <div className="col-span-2">Año</div>
+                        <div className="col-span-1">Año</div>
                         <div className="col-span-1">Duración</div>
                         <div className="col-span-1">Rating</div>
-                        <div className="col-span-2 text-right">Acciones</div>
+                        <div className="col-span-1">Edad</div>
+                        <div className="col-span-3 text-right">Acciones</div>
                     </div>
 
                     {/* Movies List */}
@@ -124,11 +161,15 @@ const MovieManager = () => {
                                 {/* Movie Info */}
                                 <div className="lg:col-span-4 flex items-center gap-4">
                                     <img
-                                        src={movie.imagenUrl || 'https://via.placeholder.com/60x90?text=No'}
+                                        src={movie.imagenUrl || "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDYwIDkwIj4KICA8cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iOTAiIGZpbGw9IiMyMDMwNDAiIC8+Cjwvc3ZnPg=="}
                                         alt={movie.titulo}
                                         className="w-12 h-18 rounded object-cover flex-shrink-0"
                                         style={{ width: '60px', height: '90px' }}
-                                        onError={(e) => e.target.src = 'https://via.placeholder.com/60x90?text=No'}
+                                        referrerPolicy="no-referrer"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDYwIDkwIj4KICA8cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iOTAiIGZpbGw9IiMyMDMwNDAiIC8+Cjwvc3ZnPg==";
+                                        }}
                                     />
                                     <div>
                                         <Link
@@ -151,7 +192,7 @@ const MovieManager = () => {
                                 </div>
 
                                 {/* Year */}
-                                <div className="lg:col-span-2 text-sm text-white">
+                                <div className="lg:col-span-1 text-sm text-white">
                                     <span className="lg:hidden font-semibold" style={{ color: '#8197A4' }}>Año: </span>
                                     {movie.fechaEstreno ? new Date(movie.fechaEstreno).getFullYear() : 'N/A'}
                                 </div>
@@ -173,8 +214,14 @@ const MovieManager = () => {
                                     </div>
                                 </div>
 
+                                {/* Age Rating */}
+                                <div className="lg:col-span-1">
+                                    <span className="lg:hidden font-semibold" style={{ color: '#8197A4' }}>Edad: </span>
+                                    {getAgeBadge(movie.edadMinima)}
+                                </div>
+
                                 {/* Actions */}
-                                <div className="lg:col-span-2 flex justify-end gap-2">
+                                <div className="lg:col-span-3 flex justify-end gap-2">
                                     <button
                                         onClick={() => navigate(`/manage-movies/edit/${movie.id}`)}
                                         className="px-4 py-2 rounded text-sm font-medium transition-colors"

@@ -1,6 +1,6 @@
 package com.gestionPeliculas.domain;
 
 public enum Rol {
-    USUSARIO,
+    USUARIO,
     ADMINISTRADOR
 }

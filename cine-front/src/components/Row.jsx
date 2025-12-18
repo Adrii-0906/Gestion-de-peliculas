@@ -2,29 +2,34 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getMovieImages } from '../services/tmdb';
 
-const Row = ({ titulo, peliculas }) => {
+const Row = ({ titulo, peliculas, isTop10 = false }) => {
     const rowRef = useRef(null);
     const [showLeftArrow, setShowLeftArrow] = useState(false);
     const [showRightArrow, setShowRightArrow] = useState(true);
-    const [movieImages, setMovieImages] = useState({});
+    const [failedImages, setFailedImages] = useState(new Set());
+    const [fallbackImages, setFallbackImages] = useState({});
 
-    // Load TMDB images for movies without proper images
+    // Effect to fetch from TMDB only for failed images
     useEffect(() => {
-        if (!peliculas || peliculas.length === 0) return;
+        if (failedImages.size === 0) return;
 
-        peliculas.forEach(movie => {
-            if (!movie.imagenUrl || movie.imagenUrl.includes('placeholder')) {
+        failedImages.forEach(movieId => {
+            // Avoid re-fetching if we already have a fallback or are fetching
+            if (fallbackImages[movieId]) return;
+
+            const movie = peliculas.find(p => p.id === movieId);
+            if (movie) {
                 getMovieImages(movie.titulo).then(data => {
                     if (data && data.poster) {
-                        setMovieImages(prev => ({
+                        setFallbackImages(prev => ({
                             ...prev,
-                            [movie.id]: data.poster
+                            [movieId]: data.poster
                         }));
                     }
                 });
             }
         });
-    }, [peliculas]);
+    }, [failedImages, peliculas, fallbackImages]);
 
     const scroll = (direction) => {
         if (rowRef.current) {
@@ -45,10 +50,22 @@ const Row = ({ titulo, peliculas }) => {
     if (!peliculas || peliculas.length === 0) return null;
 
     const getImageUrl = (movie) => {
-        // Priority: TMDB loaded image > movie.imagenUrl > placeholder
-        if (movieImages[movie.id]) return movieImages[movie.id];
-        if (movie.imagenUrl && movie.imagenUrl.startsWith('http')) return movie.imagenUrl;
-        return "https://via.placeholder.com/200x300?text=Sin+Imagen";
+        // 1. Try fallback (TMDB) first if available
+        if (fallbackImages[movie.id]) return fallbackImages[movie.id];
+
+        // 2. Try backend URL
+        if (movie.imagenUrl && movie.imagenUrl.startsWith('http') && !failedImages.has(movie.id)) {
+            return movie.imagenUrl;
+        }
+
+        // 3. Last resort placeholder
+        return "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMjAwIDMwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMzMzMiIC8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMTYiPk5vIENvdmVyPC90ZXh0Pgo8L3N2Zz4=";
+    };
+
+    const handleImageError = (movie) => {
+        if (!failedImages.has(movie.id)) {
+            setFailedImages(prev => new Set(prev).add(movie.id));
+        }
     };
 
     return (
@@ -57,50 +74,21 @@ const Row = ({ titulo, peliculas }) => {
             <div className="px-6 lg:px-10 mb-3">
                 <h2 className="text-lg lg:text-xl font-semibold text-white flex items-center gap-2">
                     {titulo}
-                    <svg
-                        className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{ color: '#8197A4' }}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                    </svg>
                 </h2>
             </div>
 
-            {/* Left Arrow */}
-            {showLeftArrow && (
-                <button
-                    onClick={() => scroll('left')}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-start pl-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    style={{ height: 'calc(100% - 60px)', width: '60px', background: 'linear-gradient(to right, rgba(15, 23, 30, 0.95), transparent)' }}
-                >
-                    <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                        style={{ backgroundColor: 'rgba(0, 168, 225, 0.8)' }}
-                    >
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                        </svg>
+            {/* Arrows */}
+            {!isTop10 && showLeftArrow && (
+                <button onClick={() => scroll('left')} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-start pl-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ height: 'calc(100% - 60px)', width: '60px', background: 'linear-gradient(to right, rgba(15, 23, 30, 0.95), transparent)' }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: 'rgba(0, 168, 225, 0.8)' }}>
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
                     </div>
                 </button>
             )}
-
-            {/* Right Arrow */}
-            {showRightArrow && (
-                <button
-                    onClick={() => scroll('right')}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-end pr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    style={{ height: 'calc(100% - 60px)', width: '60px', background: 'linear-gradient(to left, rgba(15, 23, 30, 0.95), transparent)' }}
-                >
-                    <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                        style={{ backgroundColor: 'rgba(0, 168, 225, 0.8)' }}
-                    >
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                        </svg>
+            {!isTop10 && showRightArrow && (
+                <button onClick={() => scroll('right')} className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-end pr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ height: 'calc(100% - 60px)', width: '60px', background: 'linear-gradient(to left, rgba(15, 23, 30, 0.95), transparent)' }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: 'rgba(0, 168, 225, 0.8)' }}>
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                     </div>
                 </button>
             )}
@@ -110,21 +98,28 @@ const Row = ({ titulo, peliculas }) => {
                 ref={rowRef}
                 onScroll={handleScroll}
                 className="flex gap-3 overflow-x-auto px-6 lg:px-10 scrollbar-hide pb-2"
-                style={{ scrollBehavior: 'smooth' }}
+                style={{ scrollBehavior: 'smooth', scrollSnapType: isTop10 ? 'x mandatory' : 'none' }}
             >
                 {peliculas.map((movie, index) => (
                     <Link
                         key={movie.id}
                         to={`/peliculas/${movie.id}`}
-                        className="flex-shrink-0 group/card relative"
+                        className={`flex-shrink-0 group/card relative ${isTop10 ? 'flex items-end gap-1 group/item' : ''}`}
+                        style={isTop10 ? { scrollSnapAlign: 'start' } : {}}
                     >
+                        {isTop10 && (
+                            <div className="relative" style={{ fontSize: index === 9 ? '5rem' : '6rem', fontWeight: '800', lineHeight: '0.8', WebkitTextStroke: '2px #425265', color: 'transparent', marginRight: index === 9 ? '-15px' : '-10px', zIndex: 1 }}>
+                                {index + 1}
+                            </div>
+                        )}
+
                         <div
                             className="relative rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:z-10"
                             style={{
-                                width: '180px',
-                                height: '270px',
+                                width: isTop10 ? '120px' : '180px',
+                                height: isTop10 ? '180px' : '270px',
                                 backgroundColor: '#1A242F',
-                                boxShadow: '0 2px 10px rgba(0,0,0,0.3)'
+                                boxShadow: isTop10 ? '0 4px 20px rgba(0,0,0,0.5)' : '0 2px 10px rgba(0,0,0,0.3)'
                             }}
                         >
                             <img
@@ -132,11 +127,9 @@ const Row = ({ titulo, peliculas }) => {
                                 alt={movie.titulo}
                                 className="w-full h-full object-cover"
                                 loading="lazy"
-                                onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "https://via.placeholder.com/180x270?text=No+Disponible";
-                                }}
+                                onError={() => handleImageError(movie)}
                             />
+                            {/* ... Rest of overlay logic ... */}
 
                             {/* Hover Overlay */}
                             <div

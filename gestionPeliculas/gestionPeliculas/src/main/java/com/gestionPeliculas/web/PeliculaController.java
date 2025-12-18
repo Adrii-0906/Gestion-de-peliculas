@@ -1,7 +1,5 @@
 package com.gestionPeliculas.web;
 
-
-
 import com.gestionPeliculas.DTOs.PeliculaCreateUpdateDTO;
 import com.gestionPeliculas.DTOs.PeliculaDTO;
 import com.gestionPeliculas.service.PeliculaService;
@@ -22,7 +20,6 @@ import java.util.List;
 public class PeliculaController {
     private final PeliculaService service;
 
-
     @GetMapping
     public List<PeliculaDTO> listar() {
         return service.listar();
@@ -32,12 +29,13 @@ public class PeliculaController {
     public PeliculaDTO buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
     }
+
     /*
-        @GetMapping("/mejores_peliculas")
-        public List<Pelicula> mejores_peliculas() {
-            return service.mejores_peliculas();
-        }
-    */
+     * @GetMapping("/mejores_peliculas")
+     * public List<Pelicula> mejores_peliculas() {
+     * return service.mejores_peliculas();
+     * }
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PeliculaDTO agregar(@Valid @RequestBody PeliculaCreateUpdateDTO pelicula) {
@@ -55,7 +53,15 @@ public class PeliculaController {
         service.eliminar(id);
     }
 
-
+    @PatchMapping("/{id}/edad")
+    public ResponseEntity<?> actualizarEdad(@PathVariable Long id, @RequestBody java.util.Map<String, Integer> body) {
+        Integer edadMinima = body.get("edadMinima");
+        if (edadMinima == null) {
+            return ResponseEntity.badRequest().body("edadMinima is required");
+        }
+        service.actualizarEdadMinima(id, edadMinima);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/procesar")
     public String procesarPeliculas() {
@@ -77,10 +83,10 @@ public class PeliculaController {
         var t4 = service.tareaLenta2("🎵 Soul");
         var t5 = service.tareaLenta2("🎵 Soul");
         var t6 = service.tareaLenta2("🎵 Soul");
-        //var t7 = service.tareaLenta2("🎵 Soul");
+        // var t7 = service.tareaLenta2("🎵 Soul");
 
         // Espera a que terminen todas las tareas
-        CompletableFuture.allOf(t1, t2, t3,t4,t5,t6).join();
+        CompletableFuture.allOf(t1, t2, t3, t4, t5, t6).join();
 
         long fin = System.currentTimeMillis();
         return "Tiempo total (asíncrono): " + (fin - inicio) + " ms";
@@ -102,13 +108,14 @@ public class PeliculaController {
         return "Tiempo total (asíncrono): " + (fin - inicio) + " ms";
     }
 
-
     // A4 - Ejercicio 3
     @PostMapping("/cargarPeliculas/{nombreCarpeta}") // Creamos el endpoint para importar las peliculas
     public ResponseEntity<?> cargarPeliculasArchivo(@PathVariable String nombreCarpeta) throws IOException {
-        String rutaFichero = "gestionPeliculas/src/main/resources/" + nombreCarpeta; // Pasamos por parametro la ruta de las peliculas
+        String rutaFichero = "gestionPeliculas/src/main/resources/" + nombreCarpeta; // Pasamos por parametro la ruta de
+                                                                                     // las peliculas
 
-        service.importarCarpeta(rutaFichero); // Del servicePeliculas ejeutamos el importarCarpeta, con la ruta de la carpeta por parametro para imprimir las peliculas que se han importado
+        service.importarCarpeta(rutaFichero); // Del servicePeliculas ejeutamos el importarCarpeta, con la ruta de la
+                                              // carpeta por parametro para imprimir las peliculas que se han importado
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Archivos importados correctamente");
     }
@@ -116,8 +123,8 @@ public class PeliculaController {
     // A4 - Ejercicio 4
     @GetMapping("/oscar/{jurados}") // Creamos el endpoint de los oscars
     public HashMap<String, Integer> votacionesOscars(@PathVariable int jurados) throws InterruptedException {
-        return service.votacionOscars(jurados); // Devolvemos el metodo de service, pasando por parametro los jurados que van a votar
+        return service.votacionOscars(jurados); // Devolvemos el metodo de service, pasando por parametro los jurados
+                                                // que van a votar
     }
-
 
 }

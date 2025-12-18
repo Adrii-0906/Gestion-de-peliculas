@@ -13,12 +13,16 @@ const Login = () => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
+        // Limpiar credenciales antiguas para asegurar un intento limpio
+        localStorage.removeItem('auth');
         try {
             const response = await axios.post('http://localhost:8081/api/usuarios/login', {
                 email,
                 password
             });
+            // Guardar usuario y credenciales para Basic Auth
             localStorage.setItem('user', JSON.stringify(response.data));
+            localStorage.setItem('auth', window.btoa(`${email}:${password}`));
             navigate('/');
         } catch (err) {
             setError('Email o contraseña incorrectos');
@@ -91,14 +95,11 @@ const Login = () => {
                                 />
                             </div>
 
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center">
                                 <label className="flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" className="w-4 h-4 rounded" style={{ accentColor: '#00A8E1' }} />
                                     <span className="text-sm" style={{ color: '#8197A4' }}>Recordarme</span>
                                 </label>
-                                <a href="#" className="text-sm hover:underline" style={{ color: '#00A8E1' }}>
-                                    ¿Olvidaste tu contraseña?
-                                </a>
                             </div>
 
                             <button

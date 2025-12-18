@@ -31,11 +31,15 @@ public class PeliculaCreateUpdateDTO {
     @NotNull(message = "La valoración es obligatoria")
     private Integer valoracion;
 
+    // Clasificación por edad (0, 7, 12, 16, 18)
+    private Integer edadMinima;
+
     // --- CAMBIO CLAVE: AHORA RECIBIMOS NOMBRES ---
-    private String nombreDirector;       // Antes era Long directorId
+    private String nombreDirector; // Antes era Long directorId
     private List<String> nombresActores; // Antes era List<Long> actoresIds
 
-    // (Opcional) Puedes dejar categorías e idiomas como IDs o quitarlos si no los usas ahora
+    // (Opcional) Puedes dejar categorías e idiomas como IDs o quitarlos si no los
+    // usas ahora
     private List<Long> categoriasIds;
     private List<Long> idiomasIds;
     private List<Long> plataformasIds;

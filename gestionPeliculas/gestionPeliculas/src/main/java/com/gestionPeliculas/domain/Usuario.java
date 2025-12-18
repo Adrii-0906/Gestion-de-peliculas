@@ -35,6 +35,9 @@ public class Usuario {
     @Column(name = "avatar")
     private String avatar;
 
+    @Column(name = "activo")
+    private Boolean activo = true;
+
     // Relacion con critica
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore

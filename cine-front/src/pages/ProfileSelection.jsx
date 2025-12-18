@@ -31,26 +31,29 @@ const ProfileSelection = () => {
   const [editingProfile, setEditingProfile] = useState(null);
   const [editName, setEditName] = useState('');
   const [editAvatar, setEditAvatar] = useState('');
+  const [editIsKids, setEditIsKids] = useState(false); // Nuevo estado para Kids
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user] = useState(() => JSON.parse(localStorage.getItem('user')));
 
   useEffect(() => {
-    const savedProfiles = JSON.parse(localStorage.getItem('profiles') || '[]');
+    if (!user?.username) return;
+    const profilesKey = `profiles_${user.username}`;
+    const savedProfiles = JSON.parse(localStorage.getItem(profilesKey) || '[]');
 
-    if (savedProfiles.length === 0 && user) {
+    if (savedProfiles.length === 0) {
       const defaultProfile = {
         id: 1,
         name: user.username || 'Usuario',
         avatar: user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.username}`,
         isKids: false
       };
-      localStorage.setItem('profiles', JSON.stringify([defaultProfile]));
+      localStorage.setItem(profilesKey, JSON.stringify([defaultProfile]));
       setProfiles([defaultProfile]);
     } else {
       setProfiles(savedProfiles);
     }
     setLoading(false);
-  }, []);
+  }, [user?.username]);
 
   const handleSelect = (profile) => {
     if (isManaging) {
@@ -65,6 +68,7 @@ const ProfileSelection = () => {
     setEditingProfile(profile);
     setEditName(profile.name);
     setEditAvatar(profile.avatar);
+    setEditIsKids(profile.isKids || false);
     setShowAvatarPicker(false);
   };
 
@@ -72,23 +76,27 @@ const ProfileSelection = () => {
     setEditingProfile(null);
     setEditName('');
     setEditAvatar('');
+    setEditIsKids(false);
     setShowAvatarPicker(false);
   };
 
   const saveProfile = () => {
-    if (!editName.trim()) return;
+    if (!editName.trim() || !user) return;
+    const profilesKey = `profiles_${user.username}`;
 
     const updatedProfiles = profiles.map(p =>
       p.id === editingProfile.id
-        ? { ...p, name: editName.trim(), avatar: editAvatar }
+        ? { ...p, name: editName.trim(), avatar: editAvatar, isKids: editIsKids }
         : p
     );
-    localStorage.setItem('profiles', JSON.stringify(updatedProfiles));
+    localStorage.setItem(profilesKey, JSON.stringify(updatedProfiles));
     setProfiles(updatedProfiles);
     closeEditModal();
   };
 
   const handleAddProfile = () => {
+    if (!user) return;
+    const profilesKey = `profiles_${user.username}`;
     const newId = profiles.length > 0 ? Math.max(...profiles.map(p => p.id)) + 1 : 1;
     const randomAvatar = AVATAR_OPTIONS[Math.floor(Math.random() * AVATAR_OPTIONS.length)];
     const newProfile = {
@@ -98,7 +106,7 @@ const ProfileSelection = () => {
       isKids: false
     };
     const updatedProfiles = [...profiles, newProfile];
-    localStorage.setItem('profiles', JSON.stringify(updatedProfiles));
+    localStorage.setItem(profilesKey, JSON.stringify(updatedProfiles));
     setProfiles(updatedProfiles);
 
     // Open edit modal for the new profile
@@ -106,9 +114,10 @@ const ProfileSelection = () => {
   };
 
   const handleDeleteProfile = (profileId) => {
-    if (profiles.length <= 1) return;
+    if (profiles.length <= 1 || !user) return;
+    const profilesKey = `profiles_${user.username}`;
     const updatedProfiles = profiles.filter(p => p.id !== profileId);
-    localStorage.setItem('profiles', JSON.stringify(updatedProfiles));
+    localStorage.setItem(profilesKey, JSON.stringify(updatedProfiles));
     setProfiles(updatedProfiles);
     closeEditModal();
   };
@@ -355,6 +364,24 @@ const ProfileSelection = () => {
                 placeholder="Nombre del perfil"
                 maxLength={20}
               />
+            </div>
+
+            {/* Kids Toggle */}
+            <div className="flex items-center mb-6 cursor-pointer" onClick={() => setEditIsKids(!editIsKids)}>
+              <div
+                className={`w-6 h-6 rounded border flex items-center justify-center mr-3 transition-colors ${editIsKids ? 'bg-blue-500 border-blue-500' : 'border-gray-500'}`}
+                style={{ backgroundColor: editIsKids ? '#00A8E1' : 'transparent', borderColor: editIsKids ? '#00A8E1' : '#425265' }}
+              >
+                {editIsKids && (
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </div>
+              <div>
+                <span className="block text-white font-medium">Perfil Infantil</span>
+                <span className="text-xs text-gray-400">Solo muestra contenido para niños (Animación y Familia)</span>
+              </div>
             </div>
 
             {/* Action Buttons */}

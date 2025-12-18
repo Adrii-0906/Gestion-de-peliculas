@@ -14,4 +14,7 @@ public class UsuarioDTO {
     private String email;
     private String password;
     private String avatar;
+    private String rol;
+    private Boolean activo;
+
 }

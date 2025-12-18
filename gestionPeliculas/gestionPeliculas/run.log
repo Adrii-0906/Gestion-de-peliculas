@@ -1,0 +1,1894 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< com.gestionPeliculas:gestionPeliculas >----------------
+[INFO] Building Gestion de peliculas con SpringBoot 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.7:run (default-cli) > test-compile @ gestionPeliculas >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ gestionPeliculas ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] Copying 4 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ gestionPeliculas ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ gestionPeliculas ---
+[INFO] skip non existing resourceDirectory /home/adrian/Documentos/2DAM/Gestion-de-peliculas/gestionPeliculas/gestionPeliculas/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ gestionPeliculas ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.7:run (default-cli) < test-compile @ gestionPeliculas <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.7:run (default-cli) @ gestionPeliculas ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-12-17T22:47:55.655+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] c.gestionPeliculas.GestionDePeliculas    : Starting GestionDePeliculas using Java 21.0.9 with PID 208661 (/home/adrian/Documentos/2DAM/Gestion-de-peliculas/gestionPeliculas/gestionPeliculas/target/classes started by adrian in /home/adrian/Documentos/2DAM/Gestion-de-peliculas/gestionPeliculas/gestionPeliculas)
+2025-12-17T22:47:55.657+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] c.gestionPeliculas.GestionDePeliculas    : No active profile set, falling back to 1 default profile: "default"
+2025-12-17T22:47:55.680+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-12-17T22:47:55.680+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-12-17T22:47:56.064+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-17T22:47:56.108+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 11 JPA repository interfaces.
+2025-12-17T22:47:56.443+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-12-17T22:47:56.452+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-17T22:47:56.452+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-12-17T22:47:56.470+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-17T22:47:56.471+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 781 ms
+2025-12-17T22:47:56.566+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-17T22:47:56.590+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-12-17T22:47:56.605+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-17T22:47:56.748+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-17T22:47:56.763+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-17T22:47:56.852+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4890bec9
+2025-12-17T22:47:56.853+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-17T22:47:56.887+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.11
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-17T22:47:57.493+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-17T22:47:57.511+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    set client_min_messages = WARNING
+2025-12-17T22:47:57.512+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists critica 
+       drop constraint if exists FKodctfqsphggpftn4wveg6juqh
+2025-12-17T22:47:57.515+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists critica 
+       drop constraint if exists FKorsvjf14wfawehmsn7cthw0oc
+2025-12-17T22:47:57.516+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists funcion 
+       drop constraint if exists FKdl4ehtep6uqo0x07c8esg05va
+2025-12-17T22:47:57.517+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists funcion 
+       drop constraint if exists FKnu9w4japxbymxy7mqya3fo8cu
+2025-12-17T22:47:57.519+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists lista_item 
+       drop constraint if exists FKi36rdjg5pkipy1l7peb0dcs8i
+2025-12-17T22:47:57.520+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists lista_item 
+       drop constraint if exists FKgcoh8kg0e8o5eoefag0rvricr
+2025-12-17T22:47:57.522+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas 
+       drop constraint if exists FKj1p4d58s1bgmgylypefshtxve
+2025-12-17T22:47:57.523+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_actores 
+       drop constraint if exists FK13vqhxcr8w5dgm4q5v3hj2vtq
+2025-12-17T22:47:57.525+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_actores 
+       drop constraint if exists FK2etc3423njslb8ws6ureo6a5i
+2025-12-17T22:47:57.526+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_categorias 
+       drop constraint if exists FK3kfbfandngtl92ava6wyuvokk
+2025-12-17T22:47:57.527+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_categorias 
+       drop constraint if exists FKer2rd7g3pimnotb4efquq7vpy
+2025-12-17T22:47:57.529+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_idiomas 
+       drop constraint if exists FKan7kmlv1b747pmh8gmsum01ll
+2025-12-17T22:47:57.531+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_idiomas 
+       drop constraint if exists FKcj5hn3n684wa4p56oqjw482pb
+2025-12-17T22:47:57.532+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_plataformas 
+       drop constraint if exists FKboaarlo7u19wxv3m7php95f3e
+2025-12-17T22:47:57.533+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_plataformas 
+       drop constraint if exists FKnq00biq4wfpw7cgtofvboiwqc
+2025-12-17T22:47:57.535+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists actor cascade
+2025-12-17T22:47:57.537+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists categoria cascade
+2025-12-17T22:47:57.539+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists critica cascade
+2025-12-17T22:47:57.542+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists director cascade
+2025-12-17T22:47:57.544+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists funcion cascade
+2025-12-17T22:47:57.545+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists idioma cascade
+2025-12-17T22:47:57.547+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists lista_item cascade
+2025-12-17T22:47:57.549+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists peliculas cascade
+2025-12-17T22:47:57.551+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists peliculas_actores cascade
+2025-12-17T22:47:57.552+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists peliculas_categorias cascade
+2025-12-17T22:47:57.553+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists peliculas_idiomas cascade
+2025-12-17T22:47:57.555+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists peliculas_plataformas cascade
+2025-12-17T22:47:57.556+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists plataforma cascade
+2025-12-17T22:47:57.558+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists sala cascade
+2025-12-17T22:47:57.559+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    drop table if exists usuario cascade
+2025-12-17T22:47:57.564+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table actor (
+        id bigint generated by default as identity,
+        nombre varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.569+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table categoria (
+        id bigint generated by default as identity,
+        nombre varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.574+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table critica (
+        fecha date,
+        nota float(53),
+        id bigint generated by default as identity,
+        pelicula bigint,
+        usuario_id bigint,
+        comentario varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.579+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table director (
+        id bigint generated by default as identity,
+        nombre varchar(255) not null unique,
+        primary key (id)
+    )
+2025-12-17T22:47:57.586+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table funcion (
+        fecha date,
+        hora time(6),
+        precio float(53),
+        id bigint generated by default as identity,
+        id_sala bigint,
+        pelicula bigint,
+        formato varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.590+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table idioma (
+        id bigint generated by default as identity,
+        nombre varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.595+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table lista_item (
+        fecha_agregado timestamp(6),
+        id bigint generated by default as identity,
+        pelicula_id bigint not null,
+        usuario_id bigint not null,
+        primary key (id),
+        unique (usuario_id, pelicula_id)
+    )
+2025-12-17T22:47:57.604+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table peliculas (
+        duracion integer,
+        fecha_estreno date,
+        valoracion integer,
+        director_id bigint,
+        id bigint generated by default as identity,
+        titulo varchar(120) not null,
+        imagen_url varchar(500),
+        sinopsis varchar(2000),
+        primary key (id)
+    )
+2025-12-17T22:47:57.614+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table peliculas_actores (
+        actor_id bigint not null,
+        pelicula_id bigint not null
+    )
+2025-12-17T22:47:57.616+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table peliculas_categorias (
+        categoria_id bigint not null,
+        pelicula_id bigint not null
+    )
+2025-12-17T22:47:57.617+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table peliculas_idiomas (
+        idioma_id bigint not null,
+        pelicula_id bigint not null
+    )
+2025-12-17T22:47:57.619+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table peliculas_plataformas (
+        pelicula_id bigint not null,
+        plataforma_id bigint not null
+    )
+2025-12-17T22:47:57.621+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table plataforma (
+        id bigint generated by default as identity,
+        nombre varchar(255),
+        url varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.628+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table sala (
+        capacidad integer,
+        numero_sala integer,
+        id bigint generated by default as identity,
+        primary key (id)
+    )
+2025-12-17T22:47:57.633+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    create table usuario (
+        activo boolean,
+        id bigint generated by default as identity,
+        avatar varchar(255),
+        email varchar(255),
+        password varchar(255),
+        rol varchar(255) check (rol in ('USUARIO','ADMINISTRADOR')),
+        username varchar(255),
+        primary key (id)
+    )
+2025-12-17T22:47:57.641+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists critica 
+       add constraint FKodctfqsphggpftn4wveg6juqh 
+       foreign key (pelicula) 
+       references peliculas
+2025-12-17T22:47:57.643+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists critica 
+       add constraint FKorsvjf14wfawehmsn7cthw0oc 
+       foreign key (usuario_id) 
+       references usuario
+2025-12-17T22:47:57.645+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists funcion 
+       add constraint FKdl4ehtep6uqo0x07c8esg05va 
+       foreign key (pelicula) 
+       references peliculas
+2025-12-17T22:47:57.646+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists funcion 
+       add constraint FKnu9w4japxbymxy7mqya3fo8cu 
+       foreign key (id_sala) 
+       references sala
+2025-12-17T22:47:57.648+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists lista_item 
+       add constraint FKi36rdjg5pkipy1l7peb0dcs8i 
+       foreign key (pelicula_id) 
+       references peliculas
+2025-12-17T22:47:57.650+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists lista_item 
+       add constraint FKgcoh8kg0e8o5eoefag0rvricr 
+       foreign key (usuario_id) 
+       references usuario
+2025-12-17T22:47:57.651+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas 
+       add constraint FKj1p4d58s1bgmgylypefshtxve 
+       foreign key (director_id) 
+       references director
+2025-12-17T22:47:57.653+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_actores 
+       add constraint FK13vqhxcr8w5dgm4q5v3hj2vtq 
+       foreign key (actor_id) 
+       references actor
+2025-12-17T22:47:57.655+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_actores 
+       add constraint FK2etc3423njslb8ws6ureo6a5i 
+       foreign key (pelicula_id) 
+       references peliculas
+2025-12-17T22:47:57.656+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_categorias 
+       add constraint FK3kfbfandngtl92ava6wyuvokk 
+       foreign key (categoria_id) 
+       references categoria
+2025-12-17T22:47:57.658+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_categorias 
+       add constraint FKer2rd7g3pimnotb4efquq7vpy 
+       foreign key (pelicula_id) 
+       references peliculas
+2025-12-17T22:47:57.660+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_idiomas 
+       add constraint FKan7kmlv1b747pmh8gmsum01ll 
+       foreign key (idioma_id) 
+       references idioma
+2025-12-17T22:47:57.662+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_idiomas 
+       add constraint FKcj5hn3n684wa4p56oqjw482pb 
+       foreign key (pelicula_id) 
+       references peliculas
+2025-12-17T22:47:57.664+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_plataformas 
+       add constraint FKboaarlo7u19wxv3m7php95f3e 
+       foreign key (plataforma_id) 
+       references plataforma
+2025-12-17T22:47:57.666+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    alter table if exists peliculas_plataformas 
+       add constraint FKnq00biq4wfpw7cgtofvboiwqc 
+       foreign key (pelicula_id) 
+       references peliculas
+2025-12-17T22:47:57.668+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-17T22:47:58.017+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name usuarioService
+2025-12-17T22:47:58.311+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-12-17T22:47:58.328+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-12-17T22:47:58.334+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] c.gestionPeliculas.GestionDePeliculas    : Started GestionDePeliculas in 2.929 seconds (process running for 3.166)
+2025-12-17T22:47:58.410+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.avatar,
+        u1_0.email,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.username 
+    from
+        usuario u1_0 
+    where
+        u1_0.email=?
+2025-12-17T22:47:58.515+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        usuario
+        (activo, avatar, email, password, rol, username) 
+    values
+        (?, ?, ?, ?, ?, ?)
+>>> Usuario ADMIN creado: admin@cine.com / admin123
+2025-12-17T22:47:58.531+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.avatar,
+        u1_0.email,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.username 
+    from
+        usuario u1_0
+2025-12-17T22:47:58.686+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    select
+        count(*) 
+    from
+        peliculas p1_0
+>>> CARGANDO CATÁLOGO CON CATEGORÍAS...
+2025-12-17T22:47:58.688+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.692+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.694+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.695+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.697+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.699+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.701+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.703+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.706+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.708+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.709+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.711+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        categoria
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.713+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.716+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.718+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.720+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.722+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.724+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.725+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.727+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.729+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.731+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.732+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.734+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.736+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.737+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.739+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.741+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.743+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.745+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.747+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.749+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.750+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.752+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.754+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.755+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.757+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.759+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.761+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.762+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.764+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.766+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.768+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.770+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.771+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.773+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.775+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.776+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.779+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.781+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.783+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.784+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.786+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.788+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.790+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.791+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.793+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.795+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.797+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.798+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.800+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.802+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.804+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.805+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.807+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.809+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.810+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.812+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.814+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.816+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.817+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.819+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.821+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.824+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.826+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.827+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.829+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.831+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.832+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.834+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.836+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.838+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.840+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.842+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.844+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.846+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.848+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.850+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.852+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.855+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.856+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.859+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.862+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.864+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.866+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.868+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.869+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.871+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.873+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.874+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.876+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.878+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.879+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.881+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.883+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.885+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.886+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.888+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.890+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.892+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.894+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.896+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.898+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.900+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.902+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.904+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.905+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.908+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.910+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.912+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.914+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.916+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.918+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.920+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.923+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.926+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.929+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.933+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.936+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.938+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.939+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.941+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.942+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.944+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.946+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.948+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.950+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.952+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.954+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.956+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.957+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.959+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.960+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.962+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.964+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.966+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.968+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.970+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.972+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.974+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.975+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.977+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.979+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.980+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.982+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.984+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.986+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.988+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.990+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.992+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.993+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.995+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.997+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:58.998+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.000+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.002+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.004+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.007+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.009+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.010+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.012+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.014+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.015+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.017+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.019+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.020+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.022+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.024+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.025+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.027+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.029+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.030+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.032+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.034+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.035+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.037+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.039+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.040+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.042+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.044+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.046+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.049+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.051+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.053+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.054+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.056+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.058+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.059+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.061+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.063+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.064+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.066+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.067+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        director
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.069+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.071+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.072+01:00 DEBUG 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        actor
+        (nombre) 
+    values
+        (?)
+2025-12-17T22:47:59.076+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-12-17T22:47:59.084+01:00 ERROR 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.Error: Unresolved compilation problem: 
+	The method findByNombre(String) is undefined for the type CategoriaRepository
+
+	at com.gestionPeliculas.DataSeeder.western(DataSeeder.java:850) ~[classes/:na]
+	at com.gestionPeliculas.DataSeeder.lambda$0(DataSeeder.java:777) ~[classes/:na]
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:788) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86) ~[spring-core-6.2.12.jar:6.2.12]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:787) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772) ~[spring-boot-3.5.7.jar:3.5.7]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.7.jar:3.5.7]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.7.jar:3.5.7]
+	at com.gestionPeliculas.GestionDePeliculas.main(GestionDePeliculas.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.5.7.jar:3.5.7]
+
+2025-12-17T22:47:59.088+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-17T22:47:59.090+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-12-17T22:47:59.093+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-17T22:47:59.095+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-17T22:47:59.096+01:00  INFO 208661 --- [Gestion de peliculas con SpringBoot] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+Exception in thread "restartedMain" java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:118)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: java.lang.Error: Unresolved compilation problem: 
+	The method findByNombre(String) is undefined for the type CategoriaRepository
+
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:823)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:328)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.gestionPeliculas.GestionDePeliculas.main(GestionDePeliculas.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	... 2 more
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	The method findByNombre(String) is undefined for the type CategoriaRepository
+
+	at com.gestionPeliculas.DataSeeder.western(DataSeeder.java:850)
+	at com.gestionPeliculas.DataSeeder.lambda$0(DataSeeder.java:777)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:788)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:787)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325)
+	... 6 more
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.074 s
+[INFO] Finished at: 2025-12-17T22:47:59+01:00
+[INFO] ------------------------------------------------------------------------

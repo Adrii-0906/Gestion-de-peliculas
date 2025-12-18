@@ -1,36 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
+import listaService from '../services/listaService'; // Importar servicio
 import { getMovieImages, getMovieTrailer } from '../services/tmdb';
+import CommentSection from '../components/CommentSection'; // Import
 
 const PeliculaDetail = () => {
     const { id } = useParams();
     const [pelicula, setPelicula] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [backdrop, setBackdrop] = useState('');
+    const [tmdbBackdrop, setTmdbBackdrop] = useState(null);
     const [tmdbPoster, setTmdbPoster] = useState('');
     const [showTrailer, setShowTrailer] = useState(false);
     const [trailerUrl, setTrailerUrl] = useState(null);
     const [loadingTrailer, setLoadingTrailer] = useState(false);
+    const [enLista, setEnLista] = useState(false); // Estado para lista
+    const [showShareModal, setShowShareModal] = useState(false); // Estado para modal de compartir
+    const user = JSON.parse(localStorage.getItem('user')); // Usuario actual
 
     useEffect(() => {
-        api.get(`/peliculas/${id}`)
-            .then(res => {
-                setPelicula(res.data);
+        const fetchPelicula = async () => {
+            try {
+                const response = await api.get(`/peliculas/${id}`);
+                setPelicula(response.data);
+
                 // Fetch TMDB images
-                getMovieImages(res.data.titulo).then(tmdbData => {
-                    if (tmdbData) {
-                        if (tmdbData.backdrop) setBackdrop(tmdbData.backdrop);
-                        if (tmdbData.poster) setTmdbPoster(tmdbData.poster);
+                getMovieImages(response.data.titulo).then(data => {
+                    if (data) {
+                        if (data.backdrop) setTmdbBackdrop(data.backdrop);
+                        if (data.poster) setTmdbPoster(data.poster);
                     }
                 });
+
+                // Verificar si está en mi lista
+                if (user) {
+                    const status = await listaService.verificarEstado(user.id, id);
+                    setEnLista(status);
+                }
+
+            } catch (error) {
+                console.error('Error fetching pelicula:', error);
+            } finally {
                 setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, [id]);
+            }
+        };
+
+        fetchPelicula();
+    }, [id, user]);
 
     const handlePlayTrailer = async () => {
         if (!pelicula) return;
@@ -48,6 +64,22 @@ const PeliculaDetail = () => {
             alert('Error al cargar el trailer');
         } finally {
             setLoadingTrailer(false);
+        }
+    };
+
+    const toggleLista = async () => {
+        if (!user || !pelicula) return;
+
+        try {
+            if (enLista) {
+                await listaService.quitar(user.id, pelicula.id);
+                setEnLista(false);
+            } else {
+                await listaService.agregar(user.id, pelicula.id);
+                setEnLista(true);
+            }
+        } catch (error) {
+            console.error("Error al modificar lista", error);
         }
     };
 
@@ -83,7 +115,7 @@ const PeliculaDetail = () => {
         );
     }
 
-    const posterUrl = tmdbPoster || pelicula.imagenUrl || 'https://via.placeholder.com/300x450?text=Sin+Imagen';
+    const posterUrl = tmdbPoster || pelicula.imagenUrl || "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgMzAwIDQ1MCI+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMyMDMwNDAiIC8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMjQiPk5vIENvdmVyPC90ZXh0Pgo8L3N2Zz4=";
     const year = pelicula.fechaEstreno ? new Date(pelicula.fechaEstreno).getFullYear() : 'N/A';
 
     return (
@@ -95,8 +127,8 @@ const PeliculaDetail = () => {
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
-                        backgroundImage: backdrop ? `url(${backdrop})` : 'none',
-                        backgroundColor: backdrop ? 'transparent' : '#1A242F',
+                        backgroundImage: tmdbBackdrop ? `url(${tmdbBackdrop})` : 'none',
+                        backgroundColor: tmdbBackdrop ? 'transparent' : '#1A242F',
                         filter: 'blur(2px) brightness(0.4)',
                         transform: 'scale(1.02)'
                     }}
@@ -143,9 +175,10 @@ const PeliculaDetail = () => {
                                         src={posterUrl}
                                         alt={pelicula.titulo}
                                         className="w-full aspect-[2/3] object-cover"
+                                        referrerPolicy="no-referrer"
                                         onError={(e) => {
                                             e.target.onerror = null;
-                                            e.target.src = 'https://via.placeholder.com/280x420?text=Sin+Imagen';
+                                            e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgMzAwIDQ1MCI+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMyMDMwNDAiIC8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMjQiPk5vIENvdmVyPC90ZXh0Pgo8L3N2Zz4=";
                                         }}
                                     />
                                     {/* CineStream badge on poster */}
@@ -195,12 +228,57 @@ const PeliculaDetail = () => {
                                     </span>
                                     {pelicula.duracion && (
                                         <span className="flex items-center gap-1">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                             {Math.floor(pelicula.duracion / 60)}h {pelicula.duracion % 60}min
                                         </span>
                                     )}
+                                    {/* Age Classification Badge */}
+                                    {(() => {
+                                        const edad = pelicula.edadMinima ?? 12;
+                                        const styles = {
+                                            0: { bg: 'rgba(34, 197, 94, 0.2)', color: '#22c55e', label: 'TP' },
+                                            7: { bg: 'rgba(59, 130, 246, 0.2)', color: '#3b82f6', label: '+7' },
+                                            12: { bg: 'rgba(234, 179, 8, 0.2)', color: '#eab308', label: '+12' },
+                                            16: { bg: 'rgba(249, 115, 22, 0.2)', color: '#f97316', label: '+16' },
+                                            18: { bg: 'rgba(239, 68, 68, 0.2)', color: '#ef4444', label: '+18' }
+                                        };
+                                        const s = styles[edad] || styles[12];
+                                        return (
+                                            <span
+                                                className="px-3 py-1 rounded-lg font-bold text-sm"
+                                                style={{ backgroundColor: s.bg, color: s.color }}
+                                            >
+                                                {s.label}
+                                            </span>
+                                        );
+                                    })()}
+                                    <button
+                                        onClick={toggleLista}
+                                        className="px-8 py-3 rounded font-bold text-white transition-all duration-300 transform hover:scale-105 flex items-center"
+                                        style={{
+                                            backgroundColor: enLista ? 'rgba(255, 255, 255, 0.2)' : 'rgba(100, 116, 139, 0.5)',
+                                            backdropFilter: 'blur(5px)'
+                                        }}
+                                    >
+                                        {enLista ? (
+                                            <>
+                                                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                </svg>
+                                                En Mi Lista
+                                            </>
+                                        ) : (
+                                            <>
+                                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                                                </svg>
+                                                Mi Lista
+                                            </>
+                                        )}
+                                    </button>
                                     <span className="px-3 py-1 rounded text-xs font-semibold" style={{ border: '1px solid #425265' }}>
                                         HD
                                     </span>
@@ -247,17 +325,7 @@ const PeliculaDetail = () => {
                                         {loadingTrailer ? 'Cargando...' : 'Ver Trailer'}
                                     </button>
                                     <button
-                                        className="flex items-center gap-3 px-8 py-4 font-semibold rounded-lg transition-all duration-200"
-                                        style={{ backgroundColor: 'rgba(26, 36, 47, 0.8)', color: '#FFFFFF', border: '1px solid #425265' }}
-                                        onMouseOver={(e) => e.currentTarget.style.borderColor = '#00A8E1'}
-                                        onMouseOut={(e) => e.currentTarget.style.borderColor = '#425265'}
-                                    >
-                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-                                        </svg>
-                                        Mi lista
-                                    </button>
-                                    <button
+                                        onClick={() => setShowShareModal(true)}
                                         className="flex items-center gap-2 px-6 py-4 font-semibold rounded-lg transition-all duration-200"
                                         style={{ backgroundColor: 'transparent', color: '#8197A4' }}
                                         onMouseOver={(e) => e.currentTarget.style.color = '#FFFFFF'}
@@ -276,7 +344,7 @@ const PeliculaDetail = () => {
             </div>
 
             {/* Additional Info Section */}
-            <div className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-12" style={{ marginTop: '-100px', position: 'relative', zIndex: 20 }}>
+            <div className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-12" style={{ marginTop: '0px', position: 'relative', zIndex: 20 }}>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
@@ -360,10 +428,37 @@ const PeliculaDetail = () => {
                         </div>
                         <div>
                             <p className="text-sm mb-1" style={{ color: '#8197A4' }}>Audio</p>
-                            <p className="text-white font-medium">Español, Inglés</p>
+                            <p className="text-white font-medium">
+                                {pelicula.idiomas && pelicula.idiomas.length > 0
+                                    ? pelicula.idiomas.map(i => i.nombre).join(', ')
+                                    : 'Español, Inglés'}
+                            </p>
+                        </div>
+                        <div className="md:col-span-2">
+                            <p className="text-sm mb-1" style={{ color: '#8197A4' }}>Disponible en</p>
+                            <div className="flex flex-wrap gap-3">
+                                {pelicula.plataformas && pelicula.plataformas.length > 0 ? (
+                                    pelicula.plataformas.map(plat => (
+                                        <a
+                                            key={plat.id}
+                                            href={plat.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="px-3 py-1 rounded bg-[#2A3847] text-white hover:bg-[#00A8E1] transition-colors text-sm font-medium"
+                                        >
+                                            {plat.nombre}
+                                        </a>
+                                    ))
+                                ) : (
+                                    <p className="text-white font-medium">No disponible</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Comments Section */}
+                <CommentSection peliculaId={pelicula.id} />
 
             </div>
 
@@ -406,6 +501,96 @@ const PeliculaDetail = () => {
                             <p className="text-xl font-semibold text-white">{pelicula.titulo}</p>
                             <p className="text-sm" style={{ color: '#8197A4' }}>Trailer Oficial</p>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Share Modal */}
+            {showShareModal && (
+                <div
+                    className="fixed inset-0 flex items-center justify-center z-50"
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}
+                    onClick={() => setShowShareModal(false)}
+                >
+                    <div
+                        className="rounded-xl p-6 max-w-md w-full mx-4"
+                        style={{ backgroundColor: '#1A242F', border: '1px solid #425265' }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-bold text-white">Compartir "{pelicula.titulo}"</h3>
+                            <button
+                                onClick={() => setShowShareModal(false)}
+                                className="text-gray-400 hover:text-white transition-colors"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                            {/* Twitter/X */}
+                            <a
+                                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`¡Mira ${pelicula.titulo} en CineStream!`)}&url=${encodeURIComponent(window.location.href)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-3 p-4 rounded-lg transition-all hover:scale-105"
+                                style={{ backgroundColor: '#000000', color: 'white' }}
+                            >
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                                <span className="font-semibold">X</span>
+                            </a>
+
+                            {/* WhatsApp */}
+                            <a
+                                href={`https://wa.me/?text=${encodeURIComponent(`¡Mira ${pelicula.titulo} en CineStream! ${window.location.href}`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-3 p-4 rounded-lg transition-all hover:scale-105"
+                                style={{ backgroundColor: '#25D366', color: 'white' }}
+                            >
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                </svg>
+                                <span className="font-semibold">WhatsApp</span>
+                            </a>
+
+                            {/* Facebook */}
+                            <a
+                                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-3 p-4 rounded-lg transition-all hover:scale-105"
+                                style={{ backgroundColor: '#1877F2', color: 'white' }}
+                            >
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                                <span className="font-semibold">Facebook</span>
+                            </a>
+
+                            {/* Copiar enlace */}
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText(window.location.href);
+                                    alert('¡Enlace copiado al portapapeles!');
+                                }}
+                                className="flex items-center justify-center gap-3 p-4 rounded-lg transition-all hover:scale-105"
+                                style={{ backgroundColor: '#00A8E1', color: 'white' }}
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                                <span className="font-semibold">Copiar</span>
+                            </button>
+                        </div>
+
+                        <p className="text-center text-sm" style={{ color: '#8197A4' }}>
+                            Comparte esta película con tus amigos
+                        </p>
                     </div>
                 </div>
             )}

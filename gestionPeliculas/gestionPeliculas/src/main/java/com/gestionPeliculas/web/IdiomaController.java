@@ -1,6 +1,5 @@
 package com.gestionPeliculas.web;
 
-
 import com.gestionPeliculas.DTOs.IdiomaCreateUpdateDTO;
 import com.gestionPeliculas.DTOs.IdiomaDTO;
 import com.gestionPeliculas.service.IdiomaService;
@@ -14,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/idiomas")
 @RequiredArgsConstructor
-public class idiomaController {
+public class IdiomaController {
 
     private final IdiomaService service;
 

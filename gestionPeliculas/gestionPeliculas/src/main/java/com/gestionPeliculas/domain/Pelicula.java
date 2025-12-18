@@ -35,6 +35,9 @@ public class Pelicula {
 
     private Integer valoracion;
 
+    // Clasificación por edad (0=TP, 7=+7, 12=+12, 16=+16, 18=+18)
+    private Integer edadMinima;
+
     // Relacion con director
     @ManyToOne
     @JoinColumn(name = "director_id")
@@ -58,10 +61,8 @@ public class Pelicula {
     @JsonIgnore
     private List<Critica> criticas = new ArrayList<>();
 
-    // Relacion con plataforma
     @ManyToMany
     @JoinTable(name = "peliculas_plataformas", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "plataforma_id"))
-    @JsonIgnore
     private List<Plataforma> plataformas = new ArrayList<>();
 
     // Relacion con categoria

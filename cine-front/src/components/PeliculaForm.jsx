@@ -17,7 +17,8 @@ const PeliculaForm = () => {
         valoracion: 5,
         imagenUrl: '',
         director: null,
-        actores: []
+        actores: [],
+        edadMinima: 12
     });
 
     // UI state
@@ -44,7 +45,8 @@ const PeliculaForm = () => {
                         valoracion: movie.valoracion || 5,
                         imagenUrl: movie.imagenUrl || '',
                         director: movie.director || null,
-                        actores: movie.actores || []
+                        actores: movie.actores || [],
+                        edadMinima: movie.edadMinima ?? 12
                     });
                     setSearchQuery(movie.titulo);
                 })
@@ -96,7 +98,8 @@ const PeliculaForm = () => {
                     valoracion: fullDetails.valoracion || 5,
                     imagenUrl: fullDetails.imagenUrl || '',
                     director: fullDetails.director || null,
-                    actores: fullDetails.actores || []
+                    actores: fullDetails.actores || [],
+                    edadMinima: 12
                 });
             }
         } catch (err) {
@@ -135,6 +138,7 @@ const PeliculaForm = () => {
                 fechaEstreno: formData.fechaEstreno || new Date().toISOString().split('T')[0],
                 sinopsis: formData.sinopsis,
                 valoracion: parseInt(formData.valoracion) || 5,
+                edadMinima: parseInt(formData.edadMinima) || 12,
                 nombreDirector: formData.director?.nombre || null,
                 nombresActores: formData.actores?.map(a => a.nombre) || [],
                 categoriasIds: [],
@@ -342,6 +346,35 @@ const PeliculaForm = () => {
                                     </div>
                                 </div>
 
+                                {/* Age Classification */}
+                                <div className="mb-5">
+                                    <label className="block text-sm font-medium text-white mb-2">Clasificación de edad</label>
+                                    <div className="grid grid-cols-5 gap-2">
+                                        {[
+                                            { value: 0, label: 'TP', color: '#22c55e', desc: 'Todos los públicos' },
+                                            { value: 7, label: '+7', color: '#3b82f6', desc: 'Mayores de 7' },
+                                            { value: 12, label: '+12', color: '#eab308', desc: 'Mayores de 12' },
+                                            { value: 16, label: '+16', color: '#f97316', desc: 'Mayores de 16' },
+                                            { value: 18, label: '+18', color: '#ef4444', desc: 'Solo adultos' }
+                                        ].map(age => (
+                                            <button
+                                                key={age.value}
+                                                type="button"
+                                                onClick={() => setFormData({ ...formData, edadMinima: age.value })}
+                                                className="py-3 rounded-lg font-bold text-center transition-all"
+                                                style={{
+                                                    backgroundColor: formData.edadMinima === age.value ? age.color : '#0F171E',
+                                                    color: formData.edadMinima === age.value ? 'white' : age.color,
+                                                    border: `2px solid ${age.color}`
+                                                }}
+                                                title={age.desc}
+                                            >
+                                                {age.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
                                 {/* Image URL */}
                                 <div className="mb-5">
                                     <label className="block text-sm font-medium text-white mb-2">URL de imagen</label>
@@ -387,10 +420,14 @@ const PeliculaForm = () => {
                             >
                                 {formData.imagenUrl ? (
                                     <img
-                                        src={formData.imagenUrl}
-                                        alt="Preview"
-                                        className="w-full h-full object-cover"
-                                        onError={(e) => e.target.src = 'https://via.placeholder.com/300x450?text=Error'}
+                                        src={formData.imagenUrl || "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgMzAwIDQ1MCI+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMyMDMwNDAiIC8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMjQiPk5vIENvdmVyPC90ZXh0Pgo8L3N2Zz4="}
+                                        alt="Vista previa"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        referrerPolicy="no-referrer"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgMzAwIDQ1MCI+CiAgPHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSI0NTAiIGZpbGw9IiMyMDMwNDAiIC8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMjQiPk5vIENvdmVyPC90ZXh0Pgo8L3N2Zz4=";
+                                        }}
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center" style={{ color: '#8197A4' }}>

@@ -52,7 +52,6 @@ public class PeliculaService {
     @Lazy
     private PeliculaService self;
 
-
     // --- MÉTODOS PRINCIPALES ---
 
     @Transactional(readOnly = true)
@@ -66,12 +65,19 @@ public class PeliculaService {
     @Transactional(readOnly = true)
     public PeliculaDTO buscarPorId(Long id) {
         Pelicula p = peliculaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Película no encontrada con id: " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Película no encontrada con id: " + id));
         return mapper.toDto(p);
     }
 
     @Transactional
     public PeliculaDTO agregar(PeliculaCreateUpdateDTO dto) {
+        // Verificar si ya existe una película con el mismo título
+        if (peliculaRepository.existsByTituloIgnoreCase(dto.getTitulo())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Ya existe una película con el título: " + dto.getTitulo());
+        }
+
         // 1. Convertimos los datos básicos
         Pelicula pelicula = mapper.toEntity(dto);
 
@@ -86,7 +92,8 @@ public class PeliculaService {
     @Transactional
     public PeliculaDTO actualizar(Long id, PeliculaCreateUpdateDTO dto) {
         Pelicula peliculaExistente = peliculaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Película no encontrada con id: " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Película no encontrada con id: " + id));
 
         // 1. Actualizamos campos básicos
         mapper.updateEntity(dto, peliculaExistente);
@@ -107,6 +114,13 @@ public class PeliculaService {
         peliculaRepository.deleteById(id);
     }
 
+    @Transactional
+    public void actualizarEdadMinima(Long id, Integer edadMinima) {
+        Pelicula pelicula = peliculaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Película no encontrada"));
+        pelicula.setEdadMinima(edadMinima);
+        peliculaRepository.save(pelicula);
+    }
 
     // --- LÓGICA MÁGICA: BUSCAR O CREAR POR NOMBRE ---
 
@@ -133,7 +147,8 @@ public class PeliculaService {
             List<Actor> listaActores = new ArrayList<>();
 
             for (String nombreActor : dto.getNombresActores()) {
-                if (nombreActor == null || nombreActor.isBlank()) continue;
+                if (nombreActor == null || nombreActor.isBlank())
+                    continue;
 
                 String nombreLimpio = nombreActor.trim();
 
@@ -151,7 +166,6 @@ public class PeliculaService {
             pelicula.setActores(listaActores);
         }
     }
-
 
     // --- TUS MÉTODOS ASÍNCRONOS Y DE EJERCICIOS ANTERIORES (INTACTOS) ---
 
@@ -185,7 +199,8 @@ public class PeliculaService {
             System.out.println("Reproduciendo " + titulo + " en " + Thread.currentThread().getName());
             int milisegundos = (new Random().nextInt(5) + 1) * 1000;
             Thread.sleep(milisegundos);
-            System.out.println("Procesada la película: " + titulo + " en " + (System.currentTimeMillis() - inicio) + " ms");
+            System.out.println(
+                    "Procesada la película: " + titulo + " en " + (System.currentTimeMillis() - inicio) + " ms");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -231,5 +246,41 @@ public class PeliculaService {
         System.out.println("Duración: " + (System.currentTimeMillis() - inicio) + " ms");
 
         return new HashMap<>(votacion);
+    }
+    // --- BÚSQUEDA AVANZADA ---
+
+    @Transactional(readOnly = true)
+    public List<PeliculaDTO> buscar(String query, Long categoriaId, Integer year, Integer rating) {
+        org.springframework.data.jpa.domain.Specification<Pelicula> spec = org.springframework.data.jpa.domain.Specification
+                .where(null);
+
+        if (query != null && !query.isBlank()) {
+            String search = "%" + query.toLowerCase().trim() + "%";
+            spec = spec.and((root, q, cb) -> cb.like(cb.lower(root.get("titulo")), search));
+        }
+
+        if (categoriaId != null) {
+            spec = spec.and((root, q, cb) -> {
+                jakarta.persistence.criteria.Join<Pelicula, com.gestionPeliculas.domain.Categoria> categorias = root
+                        .join("categorias");
+                return cb.equal(categorias.get("id"), categoriaId);
+            });
+        }
+
+        if (year != null) {
+            spec = spec.and((root, q, cb) -> cb.equal(
+                    cb.function("date_part", Double.class, cb.literal("year"), root.get("fechaEstreno"))
+                            .as(Integer.class),
+                    year));
+        }
+
+        if (rating != null) {
+            spec = spec.and((root, q, cb) -> cb.equal(root.get("valoracion"), rating));
+        }
+
+        return peliculaRepository.findAll(spec)
+                .stream()
+                .map(mapper::toDto)
+                .toList();
     }
 }

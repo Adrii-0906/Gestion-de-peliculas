@@ -13,11 +13,12 @@ public class PeliculaDTO {
 
     private long id;
     private String titulo;
-    private Integer duracion;      // <--- 3ª Posición: Integer
+    private Integer duracion; // <--- 3ª Posición: Integer
     private LocalDate fechaEstreno;
     private String sinopsis;
     private Integer valoracion;
-    private String imagenUrl;      // <--- 7ª Posición: String
+    private Integer edadMinima;
+    private String imagenUrl; // <--- 7ª Posición: String
 
     // Tus DTOs completos
     private DirectorDTO director;
